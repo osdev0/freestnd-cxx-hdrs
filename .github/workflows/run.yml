@@ -1,0 +1,27 @@
+name: GitHub Actions Demo
+on: [push]
+jobs:
+  install-headers:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Install dependencies
+      - run: sudo apt update && sudo apt install build-essential
+
+      - name: Check out repository code
+        uses: actions/checkout@v3
+
+      - name: Download GCC source code
+        uses: actions/checkout@v3
+        with:
+            repository: ilobilo/bf2c
+
+      - name: Push
+      - run: |
+          git config user.name 'ilobilo'
+          git config user.email 'ilobilo@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ilobilo/libstdcxx-headers.git
+          git fetch --all
+          git add .
+          git commit -m "Upload headers [ci skip]"
+          git push origin master
