@@ -1,23 +1,49 @@
-name: GitHub Actions Demo
+name: Install libstdc++ headers
 on: [push]
 jobs:
   install-headers:
     runs-on: ubuntu-latest
-
     steps:
       - name: Install dependencies
-      - run: sudo apt update && sudo apt install build-essential
+        run: sudo apt update && sudo apt dist-upgrade -y && sudo apt install build-essential clang lld -y
 
       - name: Check out repository code
         uses: actions/checkout@v3
 
+      - name: Git config
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       - name: Download GCC source code
         uses: actions/checkout@v3
         with:
-            repository: ilobilo/bf2c
+            repository: gcc-mirror/gcc
+            path: gcc
+
+      - name: Configure libstdc++
+        run: |
+          cd gcc/libstdc++-v3/
+          mkdir build && cd build
+          export CC='clang'
+          export CXX='clang++'
+          export LD='ld.lld'
+          export CFLAGS='-std=gnu17'
+          export CXXFLAGS='-std=gnu++17'
+          ../configure --enable-multilib=no --prefix=/ --enable-tls=no --enable-nls=no --disable-hosted-libstdcxx --disable-libstdcxx-verbose --enable-libstdcxx-threads=no --enable-libstdcxx-filesystem-ts=no --enable-libstdcxx-backtrace=no
+
+      - name: Build libstdc++
+        run: make -C gcc/libstdc++-v3/build/
+
+      - name: Install libstdc++
+        run: DESTDIR=$(pwd)/dest/ make -C gcc/libstdc++-v3/build/ install
+
+      - name: Move headers
+        run: rm -rf include && mv dest/include/c++/*/ include
+
+      - name: Cleanup
+        run: rm -rf gcc dest
 
       - name: Push
-      - run: |
+        run: |
           git config user.name 'ilobilo'
           git config user.email 'ilobilo@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ilobilo/libstdcxx-headers.git
