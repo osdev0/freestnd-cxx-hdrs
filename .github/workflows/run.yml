@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
-        run: sudo apt update && sudo apt dist-upgrade -y && sudo apt install build-essential clang lld -y
+        run: sudo apt update && sudo apt dist-upgrade -y && sudo apt install build-essential -y
 
       - name: Check out repository code
         uses: actions/checkout@v3
@@ -23,11 +23,6 @@ jobs:
         run: |
           cd gcc/libstdc++-v3/
           mkdir build && cd build
-          export CC='clang'
-          export CXX='clang++'
-          export LD='ld.lld'
-          export CFLAGS='-std=gnu17'
-          export CXXFLAGS='-std=gnu++17'
           ../configure --enable-multilib=no --prefix=/ --enable-tls=no --enable-nls=no --disable-hosted-libstdcxx --disable-libstdcxx-verbose --enable-libstdcxx-threads=no --enable-libstdcxx-filesystem-ts=no --enable-libstdcxx-backtrace=no
 
       - name: Build libstdc++
