@@ -23,6 +23,8 @@ jobs:
         run: |
           cd gcc/libstdc++-v3/
           mkdir build && cd build
+          export CFLAGS='-std=gnu17'
+          export CXXFLAGS='-std=gnu++17'
           ../configure --enable-multilib=no --prefix=/ --enable-tls=no --enable-nls=no --disable-hosted-libstdcxx --disable-libstdcxx-verbose --enable-libstdcxx-threads=no --enable-libstdcxx-filesystem-ts=no --enable-libstdcxx-backtrace=no
 
       - name: Build libstdc++
