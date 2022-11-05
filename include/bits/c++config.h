@@ -34,7 +34,7 @@
 #define _GLIBCXX_RELEASE 13
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20221102
+#define __GLIBCXX__ 20221104
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -953,7 +953,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_ENDIAN_H 1
 
 /* Define to 1 if GCC 4.6 supported std::exception_ptr for the target */
-/* #undef _GLIBCXX_HAVE_EXCEPTION_PTR_SINCE_GCC46 */
+#define _GLIBCXX_HAVE_EXCEPTION_PTR_SINCE_GCC46 1
 
 /* Define to 1 if you have the <execinfo.h> header file. */
 #define _GLIBCXX_HAVE_EXECINFO_H 1
@@ -1276,7 +1276,7 @@ namespace __gnu_cxx
 
 /* Define to 1 if the target runtime linker supports binding the same symbol
    to different versions. */
-/* #undef _GLIBCXX_HAVE_SYMVER_SYMBOL_RENAMING_RUNTIME_SUPPORT */
+#define _GLIBCXX_HAVE_SYMVER_SYMBOL_RENAMING_RUNTIME_SUPPORT 1
 
 /* Define to 1 if you have the <sys/filio.h> header file. */
 /* #undef _GLIBCXX_HAVE_SYS_FILIO_H */
@@ -1735,13 +1735,13 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_STDIO_SEEK_END */
 
 /* Define to use symbol versioning in the shared library. */
-/* #undef _GLIBCXX_SYMVER */
+#define _GLIBCXX_SYMVER 1
 
 /* Define to use darwin versioning in the shared library. */
 /* #undef _GLIBCXX_SYMVER_DARWIN */
 
 /* Define to use GNU versioning in the shared library. */
-/* #undef _GLIBCXX_SYMVER_GNU */
+#define _GLIBCXX_SYMVER_GNU 1
 
 /* Define to use GNU namespace versioning in the shared library. */
 /* #undef _GLIBCXX_SYMVER_GNU_NAMESPACE */
@@ -1798,7 +1798,7 @@ namespace __gnu_cxx
 
 /* Define if ISO/IEC TR 24733 decimal floating point types are supported on
    this host. */
-/* #undef _GLIBCXX_USE_DECIMAL_FLOAT */
+#define _GLIBCXX_USE_DECIMAL_FLOAT 1
 
 /* Define if /dev/random and /dev/urandom are available for
    std::random_device. */
