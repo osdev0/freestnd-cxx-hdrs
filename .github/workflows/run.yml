@@ -23,15 +23,10 @@ jobs:
         run: |
           cd gcc/libstdc++-v3/
           mkdir build && cd build
-          export CFLAGS='-std=gnu17'
-          export CXXFLAGS='-std=gnu++17'
-          ../configure --enable-multilib=no --prefix=/ --enable-tls=no --enable-nls=no --disable-hosted-libstdcxx --disable-libstdcxx-verbose --enable-libstdcxx-threads=no --enable-libstdcxx-filesystem-ts=no --enable-libstdcxx-backtrace=no
+          ../configure --prefix=/ --disable-multilib --disable-tls --disable-nls --disable-hosted-libstdcxx --disable-libstdcxx-verbose --disable-libstdcxx-threads --disable-libstdcxx-filesystem-ts --disable-libstdcxx-backtrace
 
-      - name: Build libstdc++
-        run: make -C gcc/libstdc++-v3/build/
-
-      - name: Install libstdc++
-        run: DESTDIR=$(pwd)/dest/ make -C gcc/libstdc++-v3/build/ install
+      - name: Build and install libstdc++
+        run: DESTDIR=$(pwd)/dest/ make -C gcc/libstdc++-v3/build/ install-data
 
       - name: Move headers
         run: rm -rf include && mv dest/include/c++/*/ include
