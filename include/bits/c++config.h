@@ -34,7 +34,7 @@
 #define _GLIBCXX_RELEASE 13
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20221215
+#define __GLIBCXX__ 20221228
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -1395,9 +1395,6 @@ namespace __gnu_cxx
 /* Define to 1 if you have the <wctype.h> header file. */
 #define _GLIBCXX_HAVE_WCTYPE_H 1
 
-/* Defined if Sleep exists. */
-/* #undef _GLIBCXX_HAVE_WIN32_SLEEP */
-
 /* Define if writev is available in <sys/uio.h>. */
 #define _GLIBCXX_HAVE_WRITEV 1
 
@@ -1896,6 +1893,9 @@ namespace __gnu_cxx
 /* Define if code specialized for wchar_t should be used. */
 #define _GLIBCXX_USE_WCHAR_T 1
 
+/* Defined if Sleep exists. */
+/* #undef _GLIBCXX_USE_WIN32_SLEEP */
+
 /* Define to 1 if a verbose library is built, or 0 otherwise. */
 #define _GLIBCXX_VERBOSE 0
 
@@ -1904,6 +1904,9 @@ namespace __gnu_cxx
 
 /* Defined if as can handle rdseed. */
 #define _GLIBCXX_X86_RDSEED 1
+
+/* Define if a non-default location should be used for tzdata files. */
+/* #undef _GLIBCXX_ZONEINFO_DIR */
 
 /* Define to 1 if mutex_timedlock is available. */
 /* #undef _GTHREAD_USE_MUTEX_TIMEDLOCK */
