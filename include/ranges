@@ -1,6 +1,6 @@
 // <ranges> -*- C++ -*-
 
-// Copyright (C) 2019-2022 Free Software Foundation, Inc.
+// Copyright (C) 2019-2023 Free Software Foundation, Inc.
 //
 // This file is part of the GNU ISO C++ Library.  This library is free
 // software; you can redistribute it and/or modify it under the
@@ -43,6 +43,7 @@
 #include <iterator>
 #include <optional>
 #include <span>
+#include <string_view>
 #include <tuple>
 #if __cplusplus > 202002L
 #include <variant>
@@ -2242,11 +2243,9 @@ namespace views::__adaptor
       template<typename _Range>
 	inline constexpr bool __is_basic_string_view = false;
 
-#if _GLIBCXX_HOSTED
       template<typename _CharT, typename _Traits>
 	inline constexpr bool __is_basic_string_view<basic_string_view<_CharT, _Traits>>
 	  = true;
-#endif
 
       template<typename _Range>
 	inline constexpr bool __is_subrange = false;

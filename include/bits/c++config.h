@@ -1,6 +1,6 @@
 // Predefined symbols and macros -*- C++ -*-
 
-// Copyright (C) 1997-2022 Free Software Foundation, Inc.
+// Copyright (C) 1997-2023 Free Software Foundation, Inc.
 //
 // This file is part of the GNU ISO C++ Library.  This library is free
 // software; you can redistribute it and/or modify it under the
@@ -34,7 +34,7 @@
 #define _GLIBCXX_RELEASE 13
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20230111
+#define __GLIBCXX__ 20230122
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -1395,6 +1395,9 @@ namespace __gnu_cxx
 /* Define to 1 if you have the <wctype.h> header file. */
 #define _GLIBCXX_HAVE_WCTYPE_H 1
 
+/* Define to 1 if you have the <windows.h> header file. */
+/* #undef _GLIBCXX_HAVE_WINDOWS_H */
+
 /* Define if writev is available in <sys/uio.h>. */
 #define _GLIBCXX_HAVE_WRITEV 1
 
@@ -1722,6 +1725,9 @@ namespace __gnu_cxx
 /* Define if size_t is unsigned int. */
 /* #undef _GLIBCXX_SIZE_T_IS_UINT */
 
+/* Define if static tzdata should be compiled into the library. */
+#define _GLIBCXX_STATIC_TZDATA 1
+
 /* Define to the value of the EOF integer constant. */
 /* #undef _GLIBCXX_STDIO_EOF */
 
@@ -1905,8 +1911,8 @@ namespace __gnu_cxx
 /* Defined if as can handle rdseed. */
 #define _GLIBCXX_X86_RDSEED 1
 
-/* Define if a non-default location should be used for tzdata files. */
-/* #undef _GLIBCXX_ZONEINFO_DIR */
+/* Define if a directory should be searched for tzdata files. */
+#define _GLIBCXX_ZONEINFO_DIR "/usr/share/zoneinfo"
 
 /* Define to 1 if mutex_timedlock is available. */
 /* #undef _GTHREAD_USE_MUTEX_TIMEDLOCK */
