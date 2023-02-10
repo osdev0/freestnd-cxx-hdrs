@@ -26,7 +26,7 @@ jobs:
           ../configure --prefix=/ --disable-multilib --disable-tls --disable-nls --disable-hosted-libstdcxx --disable-libstdcxx-verbose --disable-libstdcxx-threads --disable-libstdcxx-filesystem-ts --disable-libstdcxx-backtrace
 
       - name: Build and install libstdc++
-        run: DESTDIR=$(pwd)/dest/ make -C gcc/libstdc++-v3/build/ install-data
+        run: DESTDIR=$(pwd)/dest/ make -C gcc/libstdc++-v3/build/ install
 
       - name: Move headers
         run: rm -rf include && mv dest/include/c++/*/ include
