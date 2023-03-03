@@ -5,7 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install dependencies
-        run: sudo apt update && sudo apt dist-upgrade -y && sudo apt install build-essential -y
+        run: sudo apt update && sudo apt install build-essential -y
 
       - name: Check out repository code
         uses: actions/checkout@v3
