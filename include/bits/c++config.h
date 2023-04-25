@@ -31,10 +31,10 @@
 #define _GLIBCXX_CXX_CONFIG_H 1
 
 // The major release number for the GCC release the C++ library belongs to.
-#define _GLIBCXX_RELEASE 13
+#define _GLIBCXX_RELEASE 14
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20230413
+#define __GLIBCXX__ 20230425
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
