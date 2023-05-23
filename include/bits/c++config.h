@@ -30,11 +30,13 @@
 #ifndef _GLIBCXX_CXX_CONFIG_H
 #define _GLIBCXX_CXX_CONFIG_H 1
 
+#pragma GCC system_header
+
 // The major release number for the GCC release the C++ library belongs to.
 #define _GLIBCXX_RELEASE 14
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20230510
+#define __GLIBCXX__ 20230523
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -1706,6 +1708,10 @@ namespace __gnu_cxx
 /* Define if the compiler supports C++11 atomics. */
 #define _GLIBCXX_ATOMIC_BUILTINS 1
 
+/* Define if global objects can be aligned to
+   std::hardware_destructive_interference_size. */
+/* #undef _GLIBCXX_CAN_ALIGNAS_DESTRUCTIVE_SIZE */
+
 /* Define to use concept checking code from the boost libraries. */
 /* #undef _GLIBCXX_CONCEPT_CHECKS */
 
@@ -1777,22 +1783,43 @@ namespace __gnu_cxx
    <stdio.h>, and <stdlib.h> can be used or exposed. */
 #define _GLIBCXX_USE_C99 1
 
+/* Define if C99 inverse trig functions in <complex.h> should be used in
+   <complex>. Using compiler builtins for these functions requires
+   corresponding C99 library functions to be present. */
+/* #undef _GLIBCXX_USE_C99_COMPLEX_ARC */
+
 /* Define if C99 functions in <complex.h> should be used in <tr1/complex>.
    Using compiler builtins for these functions requires corresponding C99
    library functions to be present. */
 #define _GLIBCXX_USE_C99_COMPLEX_TR1 1
 
+/* Define if C99 functions in <ctype.h> should be imported in <cctype> in
+   namespace std for C++11. */
+#define _GLIBCXX_USE_C99_CTYPE 1
+
 /* Define if C99 functions in <ctype.h> should be imported in <tr1/cctype> in
    namespace std::tr1. */
 #define _GLIBCXX_USE_C99_CTYPE_TR1 1
+
+/* Define if C99 functions in <fenv.h> should be imported in <cfenv> in
+   namespace std for C++11. */
+#define _GLIBCXX_USE_C99_FENV 1
 
 /* Define if C99 functions in <fenv.h> should be imported in <tr1/cfenv> in
    namespace std::tr1. */
 #define _GLIBCXX_USE_C99_FENV_TR1 1
 
+/* Define if C99 functions in <inttypes.h> should be imported in <cinttypes>
+   in namespace std in C++11. */
+#define _GLIBCXX_USE_C99_INTTYPES 1
+
 /* Define if C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
 #define _GLIBCXX_USE_C99_INTTYPES_TR1 1
+
+/* Define if wchar_t C99 functions in <inttypes.h> should be imported in
+   <cinttypes> in namespace std in C++11. */
+#define _GLIBCXX_USE_C99_INTTYPES_WCHAR_T 1
 
 /* Define if wchar_t C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
@@ -1801,6 +1828,10 @@ namespace __gnu_cxx
 /* Define if C99 functions or macros in <math.h> should be imported in
    <tr1/cmath> in namespace std::tr1. */
 #define _GLIBCXX_USE_C99_MATH_TR1 1
+
+/* Define if C99 types in <stdint.h> should be imported in <cstdint> in
+   namespace std for C++11. */
+#define _GLIBCXX_USE_C99_STDINT 1
 
 /* Define if C99 types in <stdint.h> should be imported in <tr1/cstdint> in
    namespace std::tr1. */
@@ -1858,7 +1889,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_USE_PTHREAD_COND_CLOCKWAIT 1
 
 /* Define if pthread_mutex_clocklock is available in <pthread.h>. */
-#define _GLIBCXX_USE_PTHREAD_MUTEX_CLOCKLOCK 1
+#define _GLIBCXX_USE_PTHREAD_MUTEX_CLOCKLOCK (_GLIBCXX_TSAN==0)
 
 /* Define if pthread_rwlock_clockrdlock and pthread_rwlock_clockwrlock are
    available in <pthread.h>. */
