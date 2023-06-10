@@ -36,7 +36,7 @@
 #define _GLIBCXX_RELEASE 14
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20230528
+#define __GLIBCXX__ 20230610
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -931,6 +931,10 @@ namespace __gnu_cxx
 /* Define to 1 if you have the `at_quick_exit' function. */
 #define _GLIBCXX_HAVE_AT_QUICK_EXIT 1
 
+/* Define if C99 float_t and double_t in <math.h> should be imported in
+   <cmath> in namespace std for C++11. */
+#define _GLIBCXX_HAVE_C99_FLT_EVAL_TYPES 1
+
 /* Define to 1 if the target assembler supports thread-local storage. */
 /* #undef _GLIBCXX_HAVE_CC_TLS */
 
@@ -1138,6 +1142,9 @@ namespace __gnu_cxx
 
 /* Define to 1 if you have the `logl' function. */
 #define _GLIBCXX_HAVE_LOGL 1
+
+/* Define if lseek is available in <unistd.h>. */
+#define _GLIBCXX_HAVE_LSEEK 1
 
 /* Define to 1 if you have the <machine/endian.h> header file. */
 /* #undef _GLIBCXX_HAVE_MACHINE_ENDIAN_H */
@@ -1668,8 +1675,8 @@ namespace __gnu_cxx
    C99 library functions to be present. */
 /* #undef _GLIBCXX11_USE_C99_COMPLEX */
 
-/* Define if C99 functions or macros in <math.h> should be imported in <cmath>
-   in namespace std for C++11. */
+/* Define if C99 generic macros in <math.h> should be imported in <cmath> in
+   namespace std for C++11. */
 #define _GLIBCXX11_USE_C99_MATH 1
 
 /* Define if C99 functions or macros in <stdio.h> should be imported in
@@ -1825,6 +1832,10 @@ namespace __gnu_cxx
    <tr1/cinttypes> in namespace std::tr1. */
 #define _GLIBCXX_USE_C99_INTTYPES_WCHAR_T_TR1 1
 
+/* Define if C99 functions in <math.h> should be imported in <cmath> in
+   namespace std for C++11. */
+#define _GLIBCXX_USE_C99_MATH_FUNCS 1
+
 /* Define if C99 functions or macros in <math.h> should be imported in
    <tr1/cmath> in namespace std::tr1. */
 #define _GLIBCXX_USE_C99_MATH_TR1 1
@@ -1846,6 +1857,9 @@ namespace __gnu_cxx
 
 /* Defined if clock_gettime has realtime clock support. */
 #define _GLIBCXX_USE_CLOCK_REALTIME 1
+
+/* Define if copy_file_range is available in <unistd.h>. */
+#define _GLIBCXX_USE_COPY_FILE_RANGE 1
 
 /* Define if ISO/IEC TR 24733 decimal floating point types are supported on
    this host. */
