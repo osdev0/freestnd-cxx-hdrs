@@ -2615,7 +2615,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
     template<forward_iterator _It>
       struct __basic_const_iterator_iter_cat<_It>
-      { using iterator_category = typename iterator_traits<_It>::iterator_category; };
+      { using iterator_category = iterator_traits<_It>::iterator_category; };
   } // namespace detail
 
   template<input_iterator _It>
