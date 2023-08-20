@@ -36,7 +36,7 @@
 #define _GLIBCXX_RELEASE 14
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20230616
+#define __GLIBCXX__ 20230820
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -320,7 +320,7 @@ namespace std
   extern "C++" __attribute__ ((__noreturn__, __always_inline__))
   inline void __terminate() _GLIBCXX_USE_NOEXCEPT
   {
-    void terminate() _GLIBCXX_USE_NOEXCEPT __attribute__ ((__noreturn__));
+    void terminate() _GLIBCXX_USE_NOEXCEPT __attribute__ ((__noreturn__,__cold__));
     terminate();
   }
 #pragma GCC visibility pop
@@ -822,10 +822,10 @@ namespace std
 # define _GLIBCXX_LDOUBLE_IS_IEEE_BINARY128 1
 #endif
 
-#ifdef __STDCPP_BFLOAT16_T__
+#if defined __cplusplus && defined __BFLT16_DIG__
 namespace __gnu_cxx
 {
-  using __bfloat16_t = decltype(0.0bf16);
+  typedef __decltype(0.0bf16) __bfloat16_t;
 }
 #endif
 
@@ -1859,7 +1859,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_USE_CLOCK_REALTIME 1
 
 /* Define if copy_file_range is available in <unistd.h>. */
-#define _GLIBCXX_USE_COPY_FILE_RANGE 1
+/* #undef _GLIBCXX_USE_COPY_FILE_RANGE */
 
 /* Define if ISO/IEC TR 24733 decimal floating point types are supported on
    this host. */
@@ -1875,11 +1875,17 @@ namespace __gnu_cxx
 /* Define if fchmodat is available in <sys/stat.h>. */
 #define _GLIBCXX_USE_FCHMODAT 1
 
+/* Define if fseeko and ftello are available. */
+#define _GLIBCXX_USE_FSEEKO_FTELLO 1
+
 /* Defined if gettimeofday is available. */
 #define _GLIBCXX_USE_GETTIMEOFDAY 1
 
 /* Define if get_nprocs is available in <sys/sysinfo.h>. */
 #define _GLIBCXX_USE_GET_NPROCS 1
+
+/* Define if init_priority should be used for iostream initialization. */
+#define _GLIBCXX_USE_INIT_PRIORITY_ATTRIBUTE 1
 
 /* Define if LFS support is available. */
 #define _GLIBCXX_USE_LFS 1
