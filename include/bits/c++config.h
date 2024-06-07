@@ -36,7 +36,7 @@
 #define _GLIBCXX_RELEASE 15
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20240501
+#define __GLIBCXX__ 20240607
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -481,9 +481,20 @@ _GLIBCXX_END_NAMESPACE_VERSION
 // Define if compatibility should be provided for -mlong-double-64.
 #undef _GLIBCXX_LONG_DOUBLE_COMPAT
 
+// Use an alternate macro to test for clang, so as to provide an easy
+// workaround for systems (such as vxworks) whose headers require
+// __clang__ to be defined, even when compiling with GCC.
+#if !defined _GLIBCXX_CLANG && defined __clang__
+# define _GLIBCXX_CLANG __clang__
+// Turn -D_GLIBCXX_CLANG=0 into -U_GLIBCXX_CLANG, so that
+// _GLIBCXX_CLANG can be tested as defined, just like __clang__.
+#elif !_GLIBCXX_CLANG
+# undef _GLIBCXX_CLANG
+#endif
+
 // Define if compatibility should be provided for alternative 128-bit long
 // double formats. Not possible for Clang until __ibm128 is supported.
-#ifndef __clang__
+#ifndef _GLIBCXX_CLANG
 #undef _GLIBCXX_LONG_DOUBLE_ALT128_COMPAT
 #endif
 
@@ -1381,6 +1392,9 @@ namespace __gnu_cxx
 
 /* Define to 1 if you have the `timespec_get' function. */
 #define _GLIBCXX_HAVE_TIMESPEC_GET 1
+
+/* Define to 1 if you have the <tlhelp32.h> header file. */
+/* #undef _GLIBCXX_HAVE_TLHELP32_H */
 
 /* Define to 1 if the target supports thread-local storage. */
 /* #undef _GLIBCXX_HAVE_TLS */
