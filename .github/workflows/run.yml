@@ -1,45 +1,43 @@
 name: Install libstdc++ headers
-on: [push, workflow_dispatch]
+
+on: [push]
+
 jobs:
   install-headers:
     runs-on: ubuntu-latest
+    container: archlinux:latest
+
     steps:
       - name: Install dependencies
-        run: sudo apt update && sudo apt install build-essential -y
+        run: pacman --noconfirm -Syu && pacman --needed --noconfirm -S base-devel git autoconf automake wget
 
       - name: Check out repository code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Git config
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
 
-      - name: Download GCC source code
-        uses: actions/checkout@v3
-        with:
-            repository: gcc-mirror/gcc
-            path: gcc
-
-      - name: Configure libstdc++
+      - name: Build toolchain
         run: |
-          cd gcc/libstdc++-v3/
-          mkdir build && cd build
-          ../configure --prefix=/ --disable-multilib --disable-tls --disable-nls --disable-hosted-libstdcxx --disable-libstdcxx-verbose --disable-libstdcxx-threads --disable-libstdcxx-filesystem-ts --disable-libstdcxx-backtrace
-
-      - name: Build and install libstdc++
-        run: DESTDIR=$(pwd)/dest/ make -C gcc/libstdc++-v3/build/ install-data
+          set -ex
+          wget https://gist.github.com/mintsuki/233faa49819aa91d7d2f8502ceaa94fe/raw/27565ee6baf7fa03105bab3fe6c3e50efa022558/make_toolchain.sh
+          chmod +x ./make_toolchain.sh
+          TARGET="x86_64-elf" ./make_toolchain.sh
 
       - name: Move headers
-        run: rm -rf include && mv dest/include/c++/*/ include
-
-      - name: Cleanup
-        run: rm -rf gcc dest
+        run: |
+          set -ex
+          mv ./include/features.h ./
+          rm -rf include && mv toolchain/include/c++/* include
+          mv ./features.h ./include/
 
       - name: Push
         run: |
-          git config user.name 'ilobilo'
-          git config user.email 'ilobilo@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/ilobilo/libstdcxx-headers.git
+          set -ex
+          git config user.name 'mintsuki'
+          git config user.email 'mintsuki@users.noreply.github.com'
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/osdev0/libstdcxx-headers.git
           git fetch --all
-          git add .
+          git add include
           git commit -m "Upload headers [ci skip]"
           git push origin master
