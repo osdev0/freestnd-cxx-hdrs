@@ -35,6 +35,8 @@ jobs:
           rm -rf ${{matrix.target_arch}}/include
           mv toolchain/include/c++/* ${{matrix.target_arch}}/include
           mv toolchain/lib/gcc/${{matrix.target_arch}}-elf/*/include/* ${{matrix.target_arch}}/include/
+          cp -rp ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf/* ${{matrix.target_arch}}/include/
+          rm -rf ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf
 
       - name: Push
         run: |
