@@ -31,12 +31,10 @@ jobs:
       - name: Move headers
         run: |
           set -ex
-          mv ./x86_64/include/features.h ./
           mkdir -p ${{matrix.target_arch}}
           rm -rf ${{matrix.target_arch}}/include
           mv toolchain/include/c++/* ${{matrix.target_arch}}/include
           mv toolchain/lib/gcc/${{matrix.target_arch}}-elf/*/include/* ${{matrix.target_arch}}/include/
-          mv ./features.h ./${{matrix.target_arch}}/include/
 
       - name: Push
         run: |
