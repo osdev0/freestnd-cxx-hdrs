@@ -1,6 +1,9 @@
 name: Build and install GCC headers
 
-on: [push]
+on:
+  push:
+    branches:
+      - 'trunk'
 
 jobs:
   install-headers:
