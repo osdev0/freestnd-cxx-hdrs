@@ -1,6 +1,6 @@
-// Locale support -*- C++ -*-
+// Optimizations for random number functions, aarch64 version -*- C++ -*-
 
-// Copyright (C) 2000-2024 Free Software Foundation, Inc.
+// Copyright (C) 2017-2024 Free Software Foundation, Inc.
 //
 // This file is part of the GNU ISO C++ Library.  This library is free
 // software; you can redistribute it and/or modify it under the
@@ -22,55 +22,26 @@
 // see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/** @file bits/ctype_inline.h
+/** @file bits/opt_random.h
  *  This is an internal header file, included by other library headers.
- *  Do not attempt to use it directly. @headername{locale}
+ *  Do not attempt to use it directly. @headername{random}
  */
 
-//
-// ISO C++ 14882: 22.1  Locales
-//
+#ifndef _BITS_OPT_RANDOM_H
+#define _BITS_OPT_RANDOM_H 1
 
-// ctype bits to be inlined go here. Non-inlinable (ie virtual do_*)
-// functions go in ctype.cc
+#pragma GCC system_header
 
-namespace std _GLIBCXX_VISIBILITY(default)
+
+namespace std _GLIBCXX_VISIBILITY (default)
 {
 _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
-  bool
-  ctype<char>::
-  is(mask __m, char __c) const
-  { return _M_table[static_cast<unsigned char>(__c)] & __m; }
 
-  const char*
-  ctype<char>::
-  is(const char* __low, const char* __high, mask* __vec) const
-  {
-    while (__low < __high)
-      *__vec++ = _M_table[static_cast<unsigned char>(*__low++)];
-    return __high;
-  }
 
-  const char*
-  ctype<char>::
-  scan_is(mask __m, const char* __low, const char* __high) const
-  {
-    while (__low < __high
-	   && !(_M_table[static_cast<unsigned char>(*__low)] & __m))
-      ++__low;
-    return __low;
-  }
-
-  const char*
-  ctype<char>::
-  scan_not(mask __m, const char* __low, const char* __high) const
-  {
-    while (__low < __high
-	   && (_M_table[static_cast<unsigned char>(*__low)] & __m) != 0)
-      ++__low;
-    return __low;
-  }
 
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace
+
+
+#endif // _BITS_OPT_RANDOM_H

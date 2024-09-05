@@ -22,16 +22,11 @@
 // see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 // <http://www.gnu.org/licenses/>.
 
-/** @file bits/ctype_base.h
- *  This is an internal header file, included by other library headers.
- *  Do not attempt to use it directly. @headername{locale}
- */
-
 //
 // ISO C++ 14882: 22.1  Locales
 //
 
-// Information as gleaned from /usr/include/ctype.h
+// Default information, may not be appropriate for specific host.
 
 namespace std _GLIBCXX_VISIBILITY(default)
 {
@@ -45,21 +40,19 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
     // NB: Offsets into ctype<char>::_M_table force a particular size
     // on the mask type. Because of this, we don't use an enum.
-    typedef unsigned short 	mask;
-    static const mask upper    	= _ISupper;
-    static const mask lower 	= _ISlower;
-    static const mask alpha 	= _ISalpha;
-    static const mask digit 	= _ISdigit;
-    static const mask xdigit 	= _ISxdigit;
-    static const mask space 	= _ISspace;
-    static const mask print 	= _ISprint;
-    static const mask graph 	= _ISalpha | _ISdigit | _ISpunct;
-    static const mask cntrl 	= _IScntrl;
-    static const mask punct 	= _ISpunct;
-    static const mask alnum 	= _ISalpha | _ISdigit;
-#if __cplusplus >= 201103L
-    static const mask blank	= _ISblank;
-#endif
+    typedef unsigned int 	mask;
+    static const mask upper    	= 1 << 0;
+    static const mask lower 	= 1 << 1;
+    static const mask alpha 	= 1 << 2;
+    static const mask digit 	= 1 << 3;
+    static const mask xdigit 	= 1 << 4;
+    static const mask space 	= 1 << 5;
+    static const mask print 	= 1 << 6;
+    static const mask graph 	= (1 << 2) | (1 << 3) | (1 << 9); // alnum|punct
+    static const mask cntrl 	= 1 << 8;
+    static const mask punct 	= 1 << 9;
+    static const mask alnum 	= (1 << 2) | (1 << 3);  // alpha|digit
+    static const mask blank	= 1 << 10;
   };
 
 _GLIBCXX_END_NAMESPACE_VERSION
