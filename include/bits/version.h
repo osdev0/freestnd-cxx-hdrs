@@ -639,7 +639,7 @@
 #undef __glibcxx_want_boyer_moore_searcher
 
 #if !defined(__cpp_lib_chrono)
-# if (__cplusplus >= 202002L) && _GLIBCXX_USE_CXX11_ABI && _GLIBCXX_HOSTED
+# if (__cplusplus >= 202002L) && _GLIBCXX_HOSTED
 #  define __glibcxx_chrono 201907L
 #  if defined(__glibcxx_want_all) || defined(__glibcxx_want_chrono)
 #   define __cpp_lib_chrono 201907L
@@ -1373,16 +1373,6 @@
 #endif /* !defined(__cpp_lib_constexpr_vector) && defined(__glibcxx_want_constexpr_vector) */
 #undef __glibcxx_want_constexpr_vector
 
-#if !defined(__cpp_lib_constrained_equality)
-# if (__cplusplus >= 202002L) && (__glibcxx_three_way_comparison)
-#  define __glibcxx_constrained_equality 202403L
-#  if defined(__glibcxx_want_all) || defined(__glibcxx_want_constrained_equality)
-#   define __cpp_lib_constrained_equality 202403L
-#  endif
-# endif
-#endif /* !defined(__cpp_lib_constrained_equality) && defined(__glibcxx_want_constrained_equality) */
-#undef __glibcxx_want_constrained_equality
-
 #if !defined(__cpp_lib_erase_if)
 # if (__cplusplus >= 202002L) && _GLIBCXX_HOSTED
 #  define __glibcxx_erase_if 202002L
@@ -2012,15 +2002,5 @@
 # endif
 #endif /* !defined(__cpp_lib_to_string) && defined(__glibcxx_want_to_string) */
 #undef __glibcxx_want_to_string
-
-#if !defined(__cpp_lib_ranges_concat)
-# if (__cplusplus >  202302L)
-#  define __glibcxx_ranges_concat 202403L
-#  if defined(__glibcxx_want_all) || defined(__glibcxx_want_ranges_concat)
-#   define __cpp_lib_ranges_concat 202403L
-#  endif
-# endif
-#endif /* !defined(__cpp_lib_ranges_concat) && defined(__glibcxx_want_ranges_concat) */
-#undef __glibcxx_want_ranges_concat
 
 #undef __glibcxx_want_all

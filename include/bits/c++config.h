@@ -33,10 +33,10 @@
 #pragma GCC system_header
 
 // The major release number for the GCC release the C++ library belongs to.
-#define _GLIBCXX_RELEASE 15
+#define _GLIBCXX_RELEASE 14
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20240702
+#define __GLIBCXX__ 20240801
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -481,20 +481,9 @@ _GLIBCXX_END_NAMESPACE_VERSION
 // Define if compatibility should be provided for -mlong-double-64.
 #undef _GLIBCXX_LONG_DOUBLE_COMPAT
 
-// Use an alternate macro to test for clang, so as to provide an easy
-// workaround for systems (such as vxworks) whose headers require
-// __clang__ to be defined, even when compiling with GCC.
-#if !defined _GLIBCXX_CLANG && defined __clang__
-# define _GLIBCXX_CLANG __clang__
-// Turn -D_GLIBCXX_CLANG=0 into -U_GLIBCXX_CLANG, so that
-// _GLIBCXX_CLANG can be tested as defined, just like __clang__.
-#elif !_GLIBCXX_CLANG
-# undef _GLIBCXX_CLANG
-#endif
-
 // Define if compatibility should be provided for alternative 128-bit long
 // double formats. Not possible for Clang until __ibm128 is supported.
-#ifndef _GLIBCXX_CLANG
+#ifndef __clang__
 #undef _GLIBCXX_LONG_DOUBLE_ALT128_COMPAT
 #endif
 
@@ -913,7 +902,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_ALIGNED_ALLOC 1
 
 /* Define if arc4random is available in <stdlib.h>. */
-/* #undef _GLIBCXX_HAVE_ARC4RANDOM */
+#define _GLIBCXX_HAVE_ARC4RANDOM 1
 
 /* Define to 1 if you have the <arpa/inet.h> header file. */
 #define _GLIBCXX_HAVE_ARPA_INET_H 1
@@ -1134,7 +1123,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_LINK_H 1
 
 /* Define if futex syscall is available. */
-#define _GLIBCXX_HAVE_LINUX_FUTEX 1
+/* #undef _GLIBCXX_HAVE_LINUX_FUTEX */
 
 /* Define to 1 if you have the <linux/random.h> header file. */
 #define _GLIBCXX_HAVE_LINUX_RANDOM_H 1
@@ -1261,7 +1250,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_SINL 1
 
 /* Defined if sleep exists. */
-/* #undef _GLIBCXX_HAVE_SLEEP */
+#define _GLIBCXX_HAVE_SLEEP 1
 
 /* Define to 1 if you have the `sockatmark' function. */
 #define _GLIBCXX_HAVE_SOCKATMARK 1
@@ -1288,7 +1277,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_STDLIB_H 1
 
 /* Define if strerror_l is available in <string.h>. */
-#define _GLIBCXX_HAVE_STRERROR_L 1
+/* #undef _GLIBCXX_HAVE_STRERROR_L */
 
 /* Define if strerror_r is available in <string.h>. */
 #define _GLIBCXX_HAVE_STRERROR_R 1
@@ -1309,7 +1298,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_STRUCT_DIRENT_D_TYPE 1
 
 /* Define if strxfrm_l is available in <string.h>. */
-#define _GLIBCXX_HAVE_STRXFRM_L 1
+/* #undef _GLIBCXX_HAVE_STRXFRM_L */
 
 /* Define if symlink is available in <unistd.h>. */
 #define _GLIBCXX_HAVE_SYMLINK 1
@@ -1343,7 +1332,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_SYS_RESOURCE_H 1
 
 /* Define to 1 if you have a suitable <sys/sdt.h> header file */
-/* #undef _GLIBCXX_HAVE_SYS_SDT_H */
+#define _GLIBCXX_HAVE_SYS_SDT_H 1
 
 /* Define to 1 if you have the <sys/sem.h> header file. */
 #define _GLIBCXX_HAVE_SYS_SEM_H 1
@@ -1393,9 +1382,6 @@ namespace __gnu_cxx
 /* Define to 1 if you have the `timespec_get' function. */
 #define _GLIBCXX_HAVE_TIMESPEC_GET 1
 
-/* Define to 1 if you have the <tlhelp32.h> header file. */
-/* #undef _GLIBCXX_HAVE_TLHELP32_H */
-
 /* Define to 1 if the target supports thread-local storage. */
 /* #undef _GLIBCXX_HAVE_TLS */
 
@@ -1415,7 +1401,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_USELOCALE 1
 
 /* Defined if usleep exists. */
-/* #undef _GLIBCXX_HAVE_USLEEP */
+#define _GLIBCXX_HAVE_USLEEP 1
 
 /* Define to 1 if you have the <utime.h> header file. */
 #define _GLIBCXX_HAVE_UTIME_H 1
@@ -1548,7 +1534,7 @@ namespace __gnu_cxx
 
 /* Define if global objects can be aligned to
    std::hardware_destructive_interference_size. */
-/* #undef _GLIBCXX_CAN_ALIGNAS_DESTRUCTIVE_SIZE */
+#define _GLIBCXX_CAN_ALIGNAS_DESTRUCTIVE_SIZE 1
 
 /* Define to use concept checking code from the boost libraries. */
 /* #undef _GLIBCXX_CONCEPT_CHECKS */
@@ -1687,13 +1673,13 @@ namespace __gnu_cxx
 
 /* Defined if clock_gettime syscall has monotonic and realtime clock support.
    */
-#define _GLIBCXX_USE_CLOCK_GETTIME_SYSCALL 1
+/* #undef _GLIBCXX_USE_CLOCK_GETTIME_SYSCALL */
 
 /* Defined if clock_gettime has monotonic clock support. */
-#define _GLIBCXX_USE_CLOCK_MONOTONIC 1
+/* #undef _GLIBCXX_USE_CLOCK_MONOTONIC */
 
 /* Defined if clock_gettime has realtime clock support. */
-#define _GLIBCXX_USE_CLOCK_REALTIME 1
+/* #undef _GLIBCXX_USE_CLOCK_REALTIME */
 
 /* Define if copy_file_range is available in <unistd.h>. */
 /* #undef _GLIBCXX_USE_COPY_FILE_RANGE */
@@ -1740,7 +1726,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_USE_MKDIR 1
 
 /* Defined if nanosleep is available. */
-#define _GLIBCXX_USE_NANOSLEEP 1
+/* #undef _GLIBCXX_USE_NANOSLEEP */
 
 /* Define if NLS translations are to be used. */
 /* #undef _GLIBCXX_USE_NLS */
@@ -1772,7 +1758,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_USE_REALPATH 1
 
 /* Defined if sched_yield is available. */
-#define _GLIBCXX_USE_SCHED_YIELD 1
+/* #undef _GLIBCXX_USE_SCHED_YIELD */
 
 /* Define if _SC_NPROCESSORS_ONLN is available in <unistd.h>. */
 #define _GLIBCXX_USE_SC_NPROCESSORS_ONLN 1
@@ -1781,7 +1767,7 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_USE_SC_NPROC_ONLN */
 
 /* Define if sendfile is available in <sys/sendfile.h>. */
-#define _GLIBCXX_USE_SENDFILE 1
+/* #undef _GLIBCXX_USE_SENDFILE */
 
 /* Define to restrict std::__basic_file<> to stdio APIs. */
 /* #undef _GLIBCXX_USE_STDIO_PURE */
@@ -1797,11 +1783,11 @@ namespace __gnu_cxx
 
 /* Define if c8rtomb and mbrtoc8 functions in <uchar.h> should be imported
    into namespace std in <cuchar> for C++20. */
-/* #undef _GLIBCXX_USE_UCHAR_C8RTOMB_MBRTOC8_CXX20 */
+#define _GLIBCXX_USE_UCHAR_C8RTOMB_MBRTOC8_CXX20 1
 
 /* Define if c8rtomb and mbrtoc8 functions in <uchar.h> should be imported
    into namespace std in <cuchar> for -fchar8_t. */
-/* #undef _GLIBCXX_USE_UCHAR_C8RTOMB_MBRTOC8_FCHAR8_T */
+#define _GLIBCXX_USE_UCHAR_C8RTOMB_MBRTOC8_FCHAR8_T 1
 
 /* Define if utime is available in <utime.h>. */
 #define _GLIBCXX_USE_UTIME 1
@@ -1829,7 +1815,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_X86_RDSEED 1
 
 /* Define if a directory should be searched for tzdata files. */
-#define _GLIBCXX_ZONEINFO_DIR "/usr/share/zoneinfo"
+/* #undef _GLIBCXX_ZONEINFO_DIR */
 
 /* Define to 1 if mutex_timedlock is available. */
 /* #undef _GTHREAD_USE_MUTEX_TIMEDLOCK */

@@ -513,7 +513,7 @@ namespace ranges
   template<range _Range>
     using sentinel_t = decltype(ranges::end(std::declval<_Range&>()));
 
-#if __glibcxx_ranges_as_const // >= C++23
+#if __cplusplus > 202002L
   template<range _Range>
     using const_iterator_t = const_iterator<iterator_t<_Range>>;
 
@@ -536,12 +536,6 @@ namespace ranges
   template<range _Range>
     using range_rvalue_reference_t
       = iter_rvalue_reference_t<iterator_t<_Range>>;
-
-  // _GLIBCXX_RESOLVE_LIB_DEFECTS
-  // 3860. range_common_reference_t is missing
-  template<range _Range>
-    using range_common_reference_t
-      = iter_common_reference_t<iterator_t<_Range>>;
 
   /// [range.sized] The sized_range concept.
   template<typename _Tp>
@@ -622,7 +616,7 @@ namespace ranges
     concept common_range
       = range<_Tp> && same_as<iterator_t<_Tp>, sentinel_t<_Tp>>;
 
-#if __glibcxx_ranges_as_const // >= C++23
+#if __cplusplus > 202002L
   template<typename _Tp>
     concept constant_range
       = input_range<_Tp> && std::__detail::__constant_iterator<iterator_t<_Tp>>;
@@ -630,7 +624,7 @@ namespace ranges
 
   namespace __access
   {
-#if __glibcxx_ranges_as_const // >= C++23
+#if __cplusplus > 202020L
     template<typename _Range>
       constexpr auto&
       __possibly_const_range(_Range& __r) noexcept
@@ -657,7 +651,7 @@ namespace ranges
 
     struct _CBegin
     {
-#if __glibcxx_ranges_as_const // >= C++23
+#if __cplusplus > 202002L
       template<__maybe_borrowed_range _Tp>
 	[[nodiscard]]
 	constexpr auto
@@ -685,7 +679,7 @@ namespace ranges
 
     struct _CEnd final
     {
-#if __glibcxx_ranges_as_const // >= C++23
+#if __cplusplus > 202002L
       template<__maybe_borrowed_range _Tp>
 	[[nodiscard]]
 	constexpr auto
@@ -713,7 +707,7 @@ namespace ranges
 
     struct _CRBegin
     {
-#if __glibcxx_ranges_as_const // >= C++23
+#if __cplusplus > 202002L
       template<__maybe_borrowed_range _Tp>
 	[[nodiscard]]
 	constexpr auto
@@ -741,7 +735,7 @@ namespace ranges
 
     struct _CREnd
     {
-#if __glibcxx_ranges_as_const // >= C++23
+#if __cplusplus > 202002L
       template<__maybe_borrowed_range _Tp>
 	[[nodiscard]]
 	constexpr auto
@@ -769,7 +763,7 @@ namespace ranges
 
     struct _CData
     {
-#if __glibcxx_ranges_as_const // >= C++23
+#if __cplusplus > 202002L
       template<__maybe_borrowed_range _Tp>
 	[[nodiscard]]
 	constexpr const auto*

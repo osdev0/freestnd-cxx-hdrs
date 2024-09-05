@@ -344,8 +344,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       explicit(__not_<__and_<__is_implicitly_default_constructible<_T1>,
 			     __is_implicitly_default_constructible<_T2>>>())
       pair()
-      noexcept(is_nothrow_default_constructible_v<_T1>
-		&& is_nothrow_default_constructible_v<_T2>)
       requires is_default_constructible_v<_T1>
 	       && is_default_constructible_v<_T2>
       : first(), second()
@@ -1002,19 +1000,14 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
   template<typename _T1, typename _T2> pair(_T1, _T2) -> pair<_T1, _T2>;
 #endif
 
-#if __cpp_lib_three_way_comparison
+#if __cpp_lib_three_way_comparison && __cpp_lib_concepts
   // _GLIBCXX_RESOLVE_LIB_DEFECTS
   // 3865. Sorting a range of pairs
 
   /// Two pairs are equal iff their members are equal.
   template<typename _T1, typename _T2, typename _U1, typename _U2>
-    [[nodiscard]]
-    constexpr bool
+    inline _GLIBCXX_CONSTEXPR bool
     operator==(const pair<_T1, _T2>& __x, const pair<_U1, _U2>& __y)
-    requires requires {
-      { __x.first == __y.first } -> __detail::__boolean_testable;
-      { __x.second == __y.second } -> __detail::__boolean_testable;
-    }
     { return __x.first == __y.first && __x.second == __y.second; }
 
   /** Defines a lexicographical order for pairs.
@@ -1025,7 +1018,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * less than `Q.second`.
   */
   template<typename _T1, typename _T2, typename _U1, typename _U2>
-    [[nodiscard]]
     constexpr common_comparison_category_t<__detail::__synth3way_t<_T1, _U1>,
 					   __detail::__synth3way_t<_T2, _U2>>
     operator<=>(const pair<_T1, _T2>& __x, const pair<_U1, _U2>& __y)
@@ -1037,7 +1029,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 #else
   /// Two pairs of the same type are equal iff their members are equal.
   template<typename _T1, typename _T2>
-    _GLIBCXX_NODISCARD
     inline _GLIBCXX_CONSTEXPR bool
     operator==(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
     { return __x.first == __y.first && __x.second == __y.second; }
@@ -1050,7 +1041,6 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
    * than `Q.second`.
   */
   template<typename _T1, typename _T2>
-    _GLIBCXX_NODISCARD
     inline _GLIBCXX_CONSTEXPR bool
     operator<(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
     { return __x.first < __y.first
@@ -1058,28 +1048,24 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
   /// Uses @c operator== to find the result.
   template<typename _T1, typename _T2>
-    _GLIBCXX_NODISCARD
     inline _GLIBCXX_CONSTEXPR bool
     operator!=(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
     { return !(__x == __y); }
 
   /// Uses @c operator< to find the result.
   template<typename _T1, typename _T2>
-    _GLIBCXX_NODISCARD
     inline _GLIBCXX_CONSTEXPR bool
     operator>(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
     { return __y < __x; }
 
   /// Uses @c operator< to find the result.
   template<typename _T1, typename _T2>
-    _GLIBCXX_NODISCARD
     inline _GLIBCXX_CONSTEXPR bool
     operator<=(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
     { return !(__y < __x); }
 
   /// Uses @c operator< to find the result.
   template<typename _T1, typename _T2>
-    _GLIBCXX_NODISCARD
     inline _GLIBCXX_CONSTEXPR bool
     operator>=(const pair<_T1, _T2>& __x, const pair<_T1, _T2>& __y)
     { return !(__x < __y); }
