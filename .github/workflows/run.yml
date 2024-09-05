@@ -37,6 +37,7 @@ jobs:
           mv toolchain/lib/gcc/${{matrix.target_arch}}-elf/*/include/* ${{matrix.target_arch}}/include/
           cp -rp ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf/* ${{matrix.target_arch}}/include/
           rm -rf ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf
+          ( cd ${{matrix.target_arch}} && patch -p0 <../patches/stdint.patch )
 
       - name: Push
         run: |
