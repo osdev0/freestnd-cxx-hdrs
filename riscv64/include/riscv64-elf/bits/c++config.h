@@ -796,7 +796,7 @@ namespace std
 #if defined(__FLOAT128__) || defined(__SIZEOF_FLOAT128__)
 /* For powerpc64 don't use __float128 when it's the same type as long double. */
 # if !(defined(_GLIBCXX_LONG_DOUBLE_ALT128_COMPAT) && defined(__LONG_DOUBLE_IEEE128__))
-#  define _GLIBCXX_USE_FLOAT128 1
+#  undef _GLIBCXX_USE_FLOAT128
 # endif
 #endif
 
@@ -893,141 +893,141 @@ namespace __gnu_cxx
 /* config.h.in.  Generated from configure.ac by autoheader.  */
 
 /* Define to 1 if you have the `acosf' function. */
-#define _GLIBCXX_HAVE_ACOSF 1
+/* #undef _GLIBCXX_HAVE_ACOSF */
 
 /* Define to 1 if you have the `acosl' function. */
-#define _GLIBCXX_HAVE_ACOSL 1
+/* #undef _GLIBCXX_HAVE_ACOSL */
 
 /* Define to 1 if you have the `aligned_alloc' function. */
-#define _GLIBCXX_HAVE_ALIGNED_ALLOC 1
+/* #undef _GLIBCXX_HAVE_ALIGNED_ALLOC */
 
 /* Define if arc4random is available in <stdlib.h>. */
-#define _GLIBCXX_HAVE_ARC4RANDOM 1
+/* #undef _GLIBCXX_HAVE_ARC4RANDOM */
 
 /* Define to 1 if you have the <arpa/inet.h> header file. */
-#define _GLIBCXX_HAVE_ARPA_INET_H 1
+/* #undef _GLIBCXX_HAVE_ARPA_INET_H */
 
 /* Define to 1 if you have the `asinf' function. */
-#define _GLIBCXX_HAVE_ASINF 1
+/* #undef _GLIBCXX_HAVE_ASINF */
 
 /* Define to 1 if you have the `asinl' function. */
-#define _GLIBCXX_HAVE_ASINL 1
+/* #undef _GLIBCXX_HAVE_ASINL */
 
 /* Define to 1 if the target assembler supports .symver directive. */
 #define _GLIBCXX_HAVE_AS_SYMVER_DIRECTIVE 1
 
 /* Define to 1 if you have the `atan2f' function. */
-#define _GLIBCXX_HAVE_ATAN2F 1
+/* #undef _GLIBCXX_HAVE_ATAN2F */
 
 /* Define to 1 if you have the `atan2l' function. */
-#define _GLIBCXX_HAVE_ATAN2L 1
+/* #undef _GLIBCXX_HAVE_ATAN2L */
 
 /* Define to 1 if you have the `atanf' function. */
-#define _GLIBCXX_HAVE_ATANF 1
+/* #undef _GLIBCXX_HAVE_ATANF */
 
 /* Define to 1 if you have the `atanl' function. */
-#define _GLIBCXX_HAVE_ATANL 1
+/* #undef _GLIBCXX_HAVE_ATANL */
 
 /* Defined if shared_ptr reference counting should use atomic operations. */
-#define _GLIBCXX_HAVE_ATOMIC_LOCK_POLICY 1
+/* #undef _GLIBCXX_HAVE_ATOMIC_LOCK_POLICY */
 
 /* Define to 1 if you have the `at_quick_exit' function. */
-#define _GLIBCXX_HAVE_AT_QUICK_EXIT 1
+/* #undef _GLIBCXX_HAVE_AT_QUICK_EXIT */
 
 /* Define if C99 float_t and double_t in <math.h> should be imported in
    <cmath> in namespace std for C++11. */
-#define _GLIBCXX_HAVE_C99_FLT_EVAL_TYPES 1
+/* #undef _GLIBCXX_HAVE_C99_FLT_EVAL_TYPES */
 
 /* Define to 1 if the target assembler supports thread-local storage. */
 /* #undef _GLIBCXX_HAVE_CC_TLS */
 
 /* Define to 1 if you have the `ceilf' function. */
-#define _GLIBCXX_HAVE_CEILF 1
+/* #undef _GLIBCXX_HAVE_CEILF */
 
 /* Define to 1 if you have the `ceill' function. */
-#define _GLIBCXX_HAVE_CEILL 1
+/* #undef _GLIBCXX_HAVE_CEILL */
 
 /* Define to 1 if you have the <complex.h> header file. */
-#define _GLIBCXX_HAVE_COMPLEX_H 1
+/* #undef _GLIBCXX_HAVE_COMPLEX_H */
 
 /* Define to 1 if you have the `cosf' function. */
-#define _GLIBCXX_HAVE_COSF 1
+/* #undef _GLIBCXX_HAVE_COSF */
 
 /* Define to 1 if you have the `coshf' function. */
-#define _GLIBCXX_HAVE_COSHF 1
+/* #undef _GLIBCXX_HAVE_COSHF */
 
 /* Define to 1 if you have the `coshl' function. */
-#define _GLIBCXX_HAVE_COSHL 1
+/* #undef _GLIBCXX_HAVE_COSHL */
 
 /* Define to 1 if you have the `cosl' function. */
-#define _GLIBCXX_HAVE_COSL 1
+/* #undef _GLIBCXX_HAVE_COSL */
 
 /* Define to 1 if you have the declaration of `strnlen', and to 0 if you
    don't. */
-#define _GLIBCXX_HAVE_DECL_STRNLEN 1
+#define _GLIBCXX_HAVE_DECL_STRNLEN 0
 
 /* Define to 1 if you have the <dirent.h> header file. */
-#define _GLIBCXX_HAVE_DIRENT_H 1
+/* #undef _GLIBCXX_HAVE_DIRENT_H */
 
 /* Define if dirfd is available in <dirent.h>. */
-#define _GLIBCXX_HAVE_DIRFD 1
+/* #undef _GLIBCXX_HAVE_DIRFD */
 
 /* Define to 1 if you have the <dlfcn.h> header file. */
-#define _GLIBCXX_HAVE_DLFCN_H 1
+/* #undef _GLIBCXX_HAVE_DLFCN_H */
 
 /* Define to 1 if you have the <endian.h> header file. */
-#define _GLIBCXX_HAVE_ENDIAN_H 1
+/* #undef _GLIBCXX_HAVE_ENDIAN_H */
 
 /* Define to 1 if GCC 4.6 supported std::exception_ptr for the target */
-#define _GLIBCXX_HAVE_EXCEPTION_PTR_SINCE_GCC46 1
+/* #undef _GLIBCXX_HAVE_EXCEPTION_PTR_SINCE_GCC46 */
 
 /* Define to 1 if you have the <execinfo.h> header file. */
-#define _GLIBCXX_HAVE_EXECINFO_H 1
+/* #undef _GLIBCXX_HAVE_EXECINFO_H */
 
 /* Define to 1 if you have the `expf' function. */
-#define _GLIBCXX_HAVE_EXPF 1
+/* #undef _GLIBCXX_HAVE_EXPF */
 
 /* Define to 1 if you have the `expl' function. */
-#define _GLIBCXX_HAVE_EXPL 1
+/* #undef _GLIBCXX_HAVE_EXPL */
 
 /* Define to 1 if you have the `fabsf' function. */
-#define _GLIBCXX_HAVE_FABSF 1
+/* #undef _GLIBCXX_HAVE_FABSF */
 
 /* Define to 1 if you have the `fabsl' function. */
-#define _GLIBCXX_HAVE_FABSL 1
+/* #undef _GLIBCXX_HAVE_FABSL */
 
 /* Define to 1 if you have the <fcntl.h> header file. */
-#define _GLIBCXX_HAVE_FCNTL_H 1
+/* #undef _GLIBCXX_HAVE_FCNTL_H */
 
 /* Define if fdopendir is available in <dirent.h>. */
-#define _GLIBCXX_HAVE_FDOPENDIR 1
+/* #undef _GLIBCXX_HAVE_FDOPENDIR */
 
 /* Define to 1 if you have the <fenv.h> header file. */
-#define _GLIBCXX_HAVE_FENV_H 1
+/* #undef _GLIBCXX_HAVE_FENV_H */
 
 /* Define to 1 if you have the `finite' function. */
-#define _GLIBCXX_HAVE_FINITE 1
+/* #undef _GLIBCXX_HAVE_FINITE */
 
 /* Define to 1 if you have the `finitef' function. */
-#define _GLIBCXX_HAVE_FINITEF 1
+/* #undef _GLIBCXX_HAVE_FINITEF */
 
 /* Define to 1 if you have the `finitel' function. */
-#define _GLIBCXX_HAVE_FINITEL 1
+/* #undef _GLIBCXX_HAVE_FINITEL */
 
 /* Define to 1 if you have the <float.h> header file. */
 #define _GLIBCXX_HAVE_FLOAT_H 1
 
 /* Define to 1 if you have the `floorf' function. */
-#define _GLIBCXX_HAVE_FLOORF 1
+/* #undef _GLIBCXX_HAVE_FLOORF */
 
 /* Define to 1 if you have the `floorl' function. */
-#define _GLIBCXX_HAVE_FLOORL 1
+/* #undef _GLIBCXX_HAVE_FLOORL */
 
 /* Define to 1 if you have the `fmodf' function. */
-#define _GLIBCXX_HAVE_FMODF 1
+/* #undef _GLIBCXX_HAVE_FMODF */
 
 /* Define to 1 if you have the `fmodl' function. */
-#define _GLIBCXX_HAVE_FMODL 1
+/* #undef _GLIBCXX_HAVE_FMODL */
 
 /* Define to 1 if you have the `fpclass' function. */
 /* #undef _GLIBCXX_HAVE_FPCLASS */
@@ -1036,118 +1036,118 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_HAVE_FP_H */
 
 /* Define to 1 if you have the `frexpf' function. */
-#define _GLIBCXX_HAVE_FREXPF 1
+/* #undef _GLIBCXX_HAVE_FREXPF */
 
 /* Define to 1 if you have the `frexpl' function. */
-#define _GLIBCXX_HAVE_FREXPL 1
+/* #undef _GLIBCXX_HAVE_FREXPL */
 
 /* Define if getentropy is available in <unistd.h>. */
-#define _GLIBCXX_HAVE_GETENTROPY 1
+/* #undef _GLIBCXX_HAVE_GETENTROPY */
 
 /* Define if _Unwind_GetIPInfo is available. */
 #define _GLIBCXX_HAVE_GETIPINFO 1
 
 /* Define if gets is available in <stdio.h> before C++14. */
-#define _GLIBCXX_HAVE_GETS 1
+/* #undef _GLIBCXX_HAVE_GETS */
 
 /* Define to 1 if you have the `hypot' function. */
-#define _GLIBCXX_HAVE_HYPOT 1
+/* #undef _GLIBCXX_HAVE_HYPOT */
 
 /* Define to 1 if you have the `hypotf' function. */
-#define _GLIBCXX_HAVE_HYPOTF 1
+/* #undef _GLIBCXX_HAVE_HYPOTF */
 
 /* Define to 1 if you have the `hypotl' function. */
-#define _GLIBCXX_HAVE_HYPOTL 1
+/* #undef _GLIBCXX_HAVE_HYPOTL */
 
 /* Define if you have the iconv() function and it works. */
-#define _GLIBCXX_HAVE_ICONV 1
+/* #undef _GLIBCXX_HAVE_ICONV */
 
 /* Define to 1 if you have the <ieeefp.h> header file. */
 /* #undef _GLIBCXX_HAVE_IEEEFP_H */
 
 /* Define to 1 if you have the <inttypes.h> header file. */
-#define _GLIBCXX_HAVE_INTTYPES_H 1
+/* #undef _GLIBCXX_HAVE_INTTYPES_H */
 
 /* Define to 1 if you have the `isinf' function. */
-#define _GLIBCXX_HAVE_ISINF 1
+/* #undef _GLIBCXX_HAVE_ISINF */
 
 /* Define to 1 if you have the `isinff' function. */
-#define _GLIBCXX_HAVE_ISINFF 1
+/* #undef _GLIBCXX_HAVE_ISINFF */
 
 /* Define to 1 if you have the `isinfl' function. */
-#define _GLIBCXX_HAVE_ISINFL 1
+/* #undef _GLIBCXX_HAVE_ISINFL */
 
 /* Define to 1 if you have the `isnan' function. */
-#define _GLIBCXX_HAVE_ISNAN 1
+/* #undef _GLIBCXX_HAVE_ISNAN */
 
 /* Define to 1 if you have the `isnanf' function. */
-#define _GLIBCXX_HAVE_ISNANF 1
+/* #undef _GLIBCXX_HAVE_ISNANF */
 
 /* Define to 1 if you have the `isnanl' function. */
-#define _GLIBCXX_HAVE_ISNANL 1
+/* #undef _GLIBCXX_HAVE_ISNANL */
 
 /* Defined if iswblank exists. */
-#define _GLIBCXX_HAVE_ISWBLANK 1
+/* #undef _GLIBCXX_HAVE_ISWBLANK */
 
 /* Define if LC_MESSAGES is available in <locale.h>. */
-#define _GLIBCXX_HAVE_LC_MESSAGES 1
+/* #undef _GLIBCXX_HAVE_LC_MESSAGES */
 
 /* Define to 1 if you have the `ldexpf' function. */
-#define _GLIBCXX_HAVE_LDEXPF 1
+/* #undef _GLIBCXX_HAVE_LDEXPF */
 
 /* Define to 1 if you have the `ldexpl' function. */
-#define _GLIBCXX_HAVE_LDEXPL 1
+/* #undef _GLIBCXX_HAVE_LDEXPL */
 
 /* Define to 1 if you have the <libintl.h> header file. */
 /* #undef _GLIBCXX_HAVE_LIBINTL_H */
 
 /* Only used in build directory testsuite_hooks.h. */
-#define _GLIBCXX_HAVE_LIMIT_AS 1
+/* #undef _GLIBCXX_HAVE_LIMIT_AS */
 
 /* Only used in build directory testsuite_hooks.h. */
-#define _GLIBCXX_HAVE_LIMIT_DATA 1
+/* #undef _GLIBCXX_HAVE_LIMIT_DATA */
 
 /* Only used in build directory testsuite_hooks.h. */
-#define _GLIBCXX_HAVE_LIMIT_FSIZE 1
+/* #undef _GLIBCXX_HAVE_LIMIT_FSIZE */
 
 /* Only used in build directory testsuite_hooks.h. */
-#define _GLIBCXX_HAVE_LIMIT_RSS 1
+/* #undef _GLIBCXX_HAVE_LIMIT_RSS */
 
 /* Only used in build directory testsuite_hooks.h. */
-#define _GLIBCXX_HAVE_LIMIT_VMEM 0
+/* #undef _GLIBCXX_HAVE_LIMIT_VMEM */
 
 /* Define if link is available in <unistd.h>. */
-#define _GLIBCXX_HAVE_LINK 1
+/* #undef _GLIBCXX_HAVE_LINK */
 
 /* Define to 1 if you have the <link.h> header file. */
-#define _GLIBCXX_HAVE_LINK_H 1
+/* #undef _GLIBCXX_HAVE_LINK_H */
 
 /* Define if futex syscall is available. */
 /* #undef _GLIBCXX_HAVE_LINUX_FUTEX */
 
 /* Define to 1 if you have the <linux/random.h> header file. */
-#define _GLIBCXX_HAVE_LINUX_RANDOM_H 1
+/* #undef _GLIBCXX_HAVE_LINUX_RANDOM_H */
 
 /* Define to 1 if you have the <linux/types.h> header file. */
-#define _GLIBCXX_HAVE_LINUX_TYPES_H 1
+/* #undef _GLIBCXX_HAVE_LINUX_TYPES_H */
 
 /* Define to 1 if you have the <locale.h> header file. */
-#define _GLIBCXX_HAVE_LOCALE_H 1
+/* #undef _GLIBCXX_HAVE_LOCALE_H */
 
 /* Define to 1 if you have the `log10f' function. */
-#define _GLIBCXX_HAVE_LOG10F 1
+/* #undef _GLIBCXX_HAVE_LOG10F */
 
 /* Define to 1 if you have the `log10l' function. */
-#define _GLIBCXX_HAVE_LOG10L 1
+/* #undef _GLIBCXX_HAVE_LOG10L */
 
 /* Define to 1 if you have the `logf' function. */
-#define _GLIBCXX_HAVE_LOGF 1
+/* #undef _GLIBCXX_HAVE_LOGF */
 
 /* Define to 1 if you have the `logl' function. */
-#define _GLIBCXX_HAVE_LOGL 1
+/* #undef _GLIBCXX_HAVE_LOGL */
 
 /* Define if lseek is available in <unistd.h>. */
-#define _GLIBCXX_HAVE_LSEEK 1
+/* #undef _GLIBCXX_HAVE_LSEEK */
 
 /* Define to 1 if you have the <machine/endian.h> header file. */
 /* #undef _GLIBCXX_HAVE_MACHINE_ENDIAN_H */
@@ -1156,34 +1156,34 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_HAVE_MACHINE_PARAM_H */
 
 /* Define if mbstate_t exists in wchar.h. */
-#define _GLIBCXX_HAVE_MBSTATE_T 1
+/* #undef _GLIBCXX_HAVE_MBSTATE_T */
 
 /* Define to 1 if you have the `memalign' function. */
-#define _GLIBCXX_HAVE_MEMALIGN 1
+/* #undef _GLIBCXX_HAVE_MEMALIGN */
 
 /* Define to 1 if you have the <memory.h> header file. */
-#define _GLIBCXX_HAVE_MEMORY_H 1
+/* #undef _GLIBCXX_HAVE_MEMORY_H */
 
 /* Define to 1 if you have the `modf' function. */
 /* #undef _GLIBCXX_HAVE_MODF */
 
 /* Define to 1 if you have the `modff' function. */
-#define _GLIBCXX_HAVE_MODFF 1
+/* #undef _GLIBCXX_HAVE_MODFF */
 
 /* Define to 1 if you have the `modfl' function. */
-#define _GLIBCXX_HAVE_MODFL 1
+/* #undef _GLIBCXX_HAVE_MODFL */
 
 /* Define to 1 if you have the <nan.h> header file. */
 /* #undef _GLIBCXX_HAVE_NAN_H */
 
 /* Define to 1 if you have the <netdb.h> header file. */
-#define _GLIBCXX_HAVE_NETDB_H 1
+/* #undef _GLIBCXX_HAVE_NETDB_H */
 
 /* Define to 1 if you have the <netinet/in.h> header file. */
-#define _GLIBCXX_HAVE_NETINET_IN_H 1
+/* #undef _GLIBCXX_HAVE_NETINET_IN_H */
 
 /* Define to 1 if you have the <netinet/tcp.h> header file. */
-#define _GLIBCXX_HAVE_NETINET_TCP_H 1
+/* #undef _GLIBCXX_HAVE_NETINET_TCP_H */
 
 /* Define if <math.h> defines obsolete isinf function. */
 /* #undef _GLIBCXX_HAVE_OBSOLETE_ISINF */
@@ -1192,74 +1192,74 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_HAVE_OBSOLETE_ISNAN */
 
 /* Define if openat is available in <fcntl.h>. */
-#define _GLIBCXX_HAVE_OPENAT 1
+/* #undef _GLIBCXX_HAVE_OPENAT */
 
 /* Define if poll is available in <poll.h>. */
-#define _GLIBCXX_HAVE_POLL 1
+/* #undef _GLIBCXX_HAVE_POLL */
 
 /* Define to 1 if you have the <poll.h> header file. */
-#define _GLIBCXX_HAVE_POLL_H 1
+/* #undef _GLIBCXX_HAVE_POLL_H */
 
 /* Define to 1 if you have the `posix_memalign' function. */
-#define _GLIBCXX_HAVE_POSIX_MEMALIGN 1
+/* #undef _GLIBCXX_HAVE_POSIX_MEMALIGN */
 
 /* Define to 1 if POSIX Semaphores with sem_timedwait are available in
    <semaphore.h>. */
 /* #undef _GLIBCXX_HAVE_POSIX_SEMAPHORE */
 
 /* Define to 1 if you have the `powf' function. */
-#define _GLIBCXX_HAVE_POWF 1
+/* #undef _GLIBCXX_HAVE_POWF */
 
 /* Define to 1 if you have the `powl' function. */
-#define _GLIBCXX_HAVE_POWL 1
+/* #undef _GLIBCXX_HAVE_POWL */
 
 /* Define to 1 if you have the `qfpclass' function. */
 /* #undef _GLIBCXX_HAVE_QFPCLASS */
 
 /* Define to 1 if you have the `quick_exit' function. */
-#define _GLIBCXX_HAVE_QUICK_EXIT 1
+/* #undef _GLIBCXX_HAVE_QUICK_EXIT */
 
 /* Define if readlink is available in <unistd.h>. */
-#define _GLIBCXX_HAVE_READLINK 1
+/* #undef _GLIBCXX_HAVE_READLINK */
 
 /* Define to 1 if you have the `secure_getenv' function. */
-#define _GLIBCXX_HAVE_SECURE_GETENV 1
+/* #undef _GLIBCXX_HAVE_SECURE_GETENV */
 
 /* Define to 1 if you have the `setenv' function. */
-#define _GLIBCXX_HAVE_SETENV 1
+/* #undef _GLIBCXX_HAVE_SETENV */
 
 /* Define to 1 if you have the `sincos' function. */
-#define _GLIBCXX_HAVE_SINCOS 1
+/* #undef _GLIBCXX_HAVE_SINCOS */
 
 /* Define to 1 if you have the `sincosf' function. */
-#define _GLIBCXX_HAVE_SINCOSF 1
+/* #undef _GLIBCXX_HAVE_SINCOSF */
 
 /* Define to 1 if you have the `sincosl' function. */
-#define _GLIBCXX_HAVE_SINCOSL 1
+/* #undef _GLIBCXX_HAVE_SINCOSL */
 
 /* Define to 1 if you have the `sinf' function. */
-#define _GLIBCXX_HAVE_SINF 1
+/* #undef _GLIBCXX_HAVE_SINF */
 
 /* Define to 1 if you have the `sinhf' function. */
-#define _GLIBCXX_HAVE_SINHF 1
+/* #undef _GLIBCXX_HAVE_SINHF */
 
 /* Define to 1 if you have the `sinhl' function. */
-#define _GLIBCXX_HAVE_SINHL 1
+/* #undef _GLIBCXX_HAVE_SINHL */
 
 /* Define to 1 if you have the `sinl' function. */
-#define _GLIBCXX_HAVE_SINL 1
+/* #undef _GLIBCXX_HAVE_SINL */
 
 /* Defined if sleep exists. */
-#define _GLIBCXX_HAVE_SLEEP 1
+/* #undef _GLIBCXX_HAVE_SLEEP */
 
 /* Define to 1 if you have the `sockatmark' function. */
-#define _GLIBCXX_HAVE_SOCKATMARK 1
+/* #undef _GLIBCXX_HAVE_SOCKATMARK */
 
 /* Define to 1 if you have the `sqrtf' function. */
-#define _GLIBCXX_HAVE_SQRTF 1
+/* #undef _GLIBCXX_HAVE_SQRTF */
 
 /* Define to 1 if you have the `sqrtl' function. */
-#define _GLIBCXX_HAVE_SQRTL 1
+/* #undef _GLIBCXX_HAVE_SQRTL */
 
 /* Define if the <stacktrace> header is supported. */
 /* #undef _GLIBCXX_HAVE_STACKTRACE */
@@ -1271,50 +1271,50 @@ namespace __gnu_cxx
 #define _GLIBCXX_HAVE_STDBOOL_H 1
 
 /* Define to 1 if you have the <stdint.h> header file. */
-#define _GLIBCXX_HAVE_STDINT_H 1
+/* #undef _GLIBCXX_HAVE_STDINT_H */
 
 /* Define to 1 if you have the <stdlib.h> header file. */
-#define _GLIBCXX_HAVE_STDLIB_H 1
+/* #undef _GLIBCXX_HAVE_STDLIB_H */
 
 /* Define if strerror_l is available in <string.h>. */
 /* #undef _GLIBCXX_HAVE_STRERROR_L */
 
 /* Define if strerror_r is available in <string.h>. */
-#define _GLIBCXX_HAVE_STRERROR_R 1
+/* #undef _GLIBCXX_HAVE_STRERROR_R */
 
 /* Define to 1 if you have the <strings.h> header file. */
-#define _GLIBCXX_HAVE_STRINGS_H 1
+/* #undef _GLIBCXX_HAVE_STRINGS_H */
 
 /* Define to 1 if you have the <string.h> header file. */
-#define _GLIBCXX_HAVE_STRING_H 1
+/* #undef _GLIBCXX_HAVE_STRING_H */
 
 /* Define to 1 if you have the `strtof' function. */
-#define _GLIBCXX_HAVE_STRTOF 1
+/* #undef _GLIBCXX_HAVE_STRTOF */
 
 /* Define to 1 if you have the `strtold' function. */
-#define _GLIBCXX_HAVE_STRTOLD 1
+/* #undef _GLIBCXX_HAVE_STRTOLD */
 
 /* Define to 1 if `d_type' is a member of `struct dirent'. */
-#define _GLIBCXX_HAVE_STRUCT_DIRENT_D_TYPE 1
+/* #undef _GLIBCXX_HAVE_STRUCT_DIRENT_D_TYPE */
 
 /* Define if strxfrm_l is available in <string.h>. */
 /* #undef _GLIBCXX_HAVE_STRXFRM_L */
 
 /* Define if symlink is available in <unistd.h>. */
-#define _GLIBCXX_HAVE_SYMLINK 1
+/* #undef _GLIBCXX_HAVE_SYMLINK */
 
 /* Define to 1 if the target runtime linker supports binding the same symbol
    to different versions. */
-#define _GLIBCXX_HAVE_SYMVER_SYMBOL_RENAMING_RUNTIME_SUPPORT 1
+/* #undef _GLIBCXX_HAVE_SYMVER_SYMBOL_RENAMING_RUNTIME_SUPPORT */
 
 /* Define to 1 if you have the <sys/filio.h> header file. */
 /* #undef _GLIBCXX_HAVE_SYS_FILIO_H */
 
 /* Define to 1 if you have the <sys/ioctl.h> header file. */
-#define _GLIBCXX_HAVE_SYS_IOCTL_H 1
+/* #undef _GLIBCXX_HAVE_SYS_IOCTL_H */
 
 /* Define to 1 if you have the <sys/ipc.h> header file. */
-#define _GLIBCXX_HAVE_SYS_IPC_H 1
+/* #undef _GLIBCXX_HAVE_SYS_IPC_H */
 
 /* Define to 1 if you have the <sys/isa_defs.h> header file. */
 /* #undef _GLIBCXX_HAVE_SYS_ISA_DEFS_H */
@@ -1326,109 +1326,109 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_HAVE_SYS_MMAN_H */
 
 /* Define to 1 if you have the <sys/param.h> header file. */
-#define _GLIBCXX_HAVE_SYS_PARAM_H 1
+/* #undef _GLIBCXX_HAVE_SYS_PARAM_H */
 
 /* Define to 1 if you have the <sys/resource.h> header file. */
-#define _GLIBCXX_HAVE_SYS_RESOURCE_H 1
+/* #undef _GLIBCXX_HAVE_SYS_RESOURCE_H */
 
 /* Define to 1 if you have a suitable <sys/sdt.h> header file */
-#define _GLIBCXX_HAVE_SYS_SDT_H 1
+/* #undef _GLIBCXX_HAVE_SYS_SDT_H */
 
 /* Define to 1 if you have the <sys/sem.h> header file. */
-#define _GLIBCXX_HAVE_SYS_SEM_H 1
+/* #undef _GLIBCXX_HAVE_SYS_SEM_H */
 
 /* Define to 1 if you have the <sys/socket.h> header file. */
-#define _GLIBCXX_HAVE_SYS_SOCKET_H 1
+/* #undef _GLIBCXX_HAVE_SYS_SOCKET_H */
 
 /* Define to 1 if you have the <sys/statvfs.h> header file. */
-#define _GLIBCXX_HAVE_SYS_STATVFS_H 1
+/* #undef _GLIBCXX_HAVE_SYS_STATVFS_H */
 
 /* Define to 1 if you have the <sys/stat.h> header file. */
-#define _GLIBCXX_HAVE_SYS_STAT_H 1
+/* #undef _GLIBCXX_HAVE_SYS_STAT_H */
 
 /* Define to 1 if you have the <sys/sysinfo.h> header file. */
-#define _GLIBCXX_HAVE_SYS_SYSINFO_H 1
+/* #undef _GLIBCXX_HAVE_SYS_SYSINFO_H */
 
 /* Define to 1 if you have the <sys/time.h> header file. */
-#define _GLIBCXX_HAVE_SYS_TIME_H 1
+/* #undef _GLIBCXX_HAVE_SYS_TIME_H */
 
 /* Define to 1 if you have the <sys/types.h> header file. */
-#define _GLIBCXX_HAVE_SYS_TYPES_H 1
+/* #undef _GLIBCXX_HAVE_SYS_TYPES_H */
 
 /* Define to 1 if you have the <sys/uio.h> header file. */
-#define _GLIBCXX_HAVE_SYS_UIO_H 1
+/* #undef _GLIBCXX_HAVE_SYS_UIO_H */
 
 /* Define if S_IFREG is available in <sys/stat.h>. */
 /* #undef _GLIBCXX_HAVE_S_IFREG */
 
 /* Define if S_ISREG is available in <sys/stat.h>. */
-#define _GLIBCXX_HAVE_S_ISREG 1
+/* #undef _GLIBCXX_HAVE_S_ISREG */
 
 /* Define to 1 if you have the `tanf' function. */
-#define _GLIBCXX_HAVE_TANF 1
+/* #undef _GLIBCXX_HAVE_TANF */
 
 /* Define to 1 if you have the `tanhf' function. */
-#define _GLIBCXX_HAVE_TANHF 1
+/* #undef _GLIBCXX_HAVE_TANHF */
 
 /* Define to 1 if you have the `tanhl' function. */
-#define _GLIBCXX_HAVE_TANHL 1
+/* #undef _GLIBCXX_HAVE_TANHL */
 
 /* Define to 1 if you have the `tanl' function. */
-#define _GLIBCXX_HAVE_TANL 1
+/* #undef _GLIBCXX_HAVE_TANL */
 
 /* Define to 1 if you have the <tgmath.h> header file. */
-#define _GLIBCXX_HAVE_TGMATH_H 1
+/* #undef _GLIBCXX_HAVE_TGMATH_H */
 
 /* Define to 1 if you have the `timespec_get' function. */
-#define _GLIBCXX_HAVE_TIMESPEC_GET 1
+/* #undef _GLIBCXX_HAVE_TIMESPEC_GET */
 
 /* Define to 1 if the target supports thread-local storage. */
 /* #undef _GLIBCXX_HAVE_TLS */
 
 /* Define if truncate is available in <unistd.h>. */
-#define _GLIBCXX_HAVE_TRUNCATE 1
+/* #undef _GLIBCXX_HAVE_TRUNCATE */
 
 /* Define to 1 if you have the <uchar.h> header file. */
-#define _GLIBCXX_HAVE_UCHAR_H 1
+/* #undef _GLIBCXX_HAVE_UCHAR_H */
 
 /* Define to 1 if you have the <unistd.h> header file. */
-#define _GLIBCXX_HAVE_UNISTD_H 1
+/* #undef _GLIBCXX_HAVE_UNISTD_H */
 
 /* Define if unlinkat is available in <fcntl.h>. */
-#define _GLIBCXX_HAVE_UNLINKAT 1
+/* #undef _GLIBCXX_HAVE_UNLINKAT */
 
 /* Define to 1 if you have the `uselocale' function. */
-#define _GLIBCXX_HAVE_USELOCALE 1
+/* #undef _GLIBCXX_HAVE_USELOCALE */
 
 /* Defined if usleep exists. */
-#define _GLIBCXX_HAVE_USLEEP 1
+/* #undef _GLIBCXX_HAVE_USLEEP */
 
 /* Define to 1 if you have the <utime.h> header file. */
-#define _GLIBCXX_HAVE_UTIME_H 1
+/* #undef _GLIBCXX_HAVE_UTIME_H */
 
 /* Defined if vfwscanf exists. */
-#define _GLIBCXX_HAVE_VFWSCANF 1
+/* #undef _GLIBCXX_HAVE_VFWSCANF */
 
 /* Defined if vswscanf exists. */
-#define _GLIBCXX_HAVE_VSWSCANF 1
+/* #undef _GLIBCXX_HAVE_VSWSCANF */
 
 /* Defined if vwscanf exists. */
-#define _GLIBCXX_HAVE_VWSCANF 1
+/* #undef _GLIBCXX_HAVE_VWSCANF */
 
 /* Define to 1 if you have the <wchar.h> header file. */
-#define _GLIBCXX_HAVE_WCHAR_H 1
+/* #undef _GLIBCXX_HAVE_WCHAR_H */
 
 /* Defined if wcstof exists. */
-#define _GLIBCXX_HAVE_WCSTOF 1
+/* #undef _GLIBCXX_HAVE_WCSTOF */
 
 /* Define to 1 if you have the <wctype.h> header file. */
-#define _GLIBCXX_HAVE_WCTYPE_H 1
+/* #undef _GLIBCXX_HAVE_WCTYPE_H */
 
 /* Define to 1 if you have the <windows.h> header file. */
 /* #undef _GLIBCXX_HAVE_WINDOWS_H */
 
 /* Define if writev is available in <sys/uio.h>. */
-#define _GLIBCXX_HAVE_WRITEV 1
+/* #undef _GLIBCXX_HAVE_WRITEV */
 
 /* Define to 1 if you have the <xlocale.h> header file. */
 /* #undef _GLIBCXX_HAVE_XLOCALE_H */
@@ -1443,10 +1443,10 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_HAVE___CXA_THREAD_ATEXIT */
 
 /* Define to 1 if you have the `__cxa_thread_atexit_impl' function. */
-#define _GLIBCXX_HAVE___CXA_THREAD_ATEXIT_IMPL 1
+/* #undef _GLIBCXX_HAVE___CXA_THREAD_ATEXIT_IMPL */
 
 /* Define as const if the declaration of iconv() needs const. */
-#define _GLIBCXX_ICONV_CONST 
+/* #undef _GLIBCXX_ICONV_CONST */
 
 /* Define to the sub-directory in which libtool stores uninstalled libraries.
    */
@@ -1474,7 +1474,7 @@ namespace __gnu_cxx
 #define _GLIBCXX_PACKAGE__GLIBCXX_VERSION "version-unused"
 
 /* Define to 1 if you have the ANSI C header files. */
-#define _GLIBCXX_STDC_HEADERS 1
+/* #undef _GLIBCXX_STDC_HEADERS */
 
 /* Version number of package */
 /* #undef _GLIBCXX_VERSION */
@@ -1494,40 +1494,40 @@ namespace __gnu_cxx
 
 /* Define if C99 generic macros in <math.h> should be imported in <cmath> in
    namespace std for C++11. */
-#define _GLIBCXX11_USE_C99_MATH 1
+/* #undef _GLIBCXX11_USE_C99_MATH */
 
 /* Define if C99 functions or macros in <stdio.h> should be imported in
    <cstdio> in namespace std for C++11. */
-#define _GLIBCXX11_USE_C99_STDIO 1
+/* #undef _GLIBCXX11_USE_C99_STDIO */
 
 /* Define if C99 functions or macros in <stdlib.h> should be imported in
    <cstdlib> in namespace std for C++11. */
-#define _GLIBCXX11_USE_C99_STDLIB 1
+/* #undef _GLIBCXX11_USE_C99_STDLIB */
 
 /* Define if C99 functions or macros in <wchar.h> should be imported in
    <cwchar> in namespace std for C++11. */
-#define _GLIBCXX11_USE_C99_WCHAR 1
+/* #undef _GLIBCXX11_USE_C99_WCHAR */
 
 /* Define if C99 functions in <complex.h> should be used in <complex> for
    C++98. Using compiler builtins for these functions requires corresponding
    C99 library functions to be present. */
-#define _GLIBCXX98_USE_C99_COMPLEX 1
+/* #undef _GLIBCXX98_USE_C99_COMPLEX */
 
 /* Define if C99 functions or macros in <math.h> should be imported in <cmath>
    in namespace std for C++98. */
-#define _GLIBCXX98_USE_C99_MATH 1
+/* #undef _GLIBCXX98_USE_C99_MATH */
 
 /* Define if C99 functions or macros in <stdio.h> should be imported in
    <cstdio> in namespace std for C++98. */
-#define _GLIBCXX98_USE_C99_STDIO 1
+/* #undef _GLIBCXX98_USE_C99_STDIO */
 
 /* Define if C99 functions or macros in <stdlib.h> should be imported in
    <cstdlib> in namespace std for C++98. */
-#define _GLIBCXX98_USE_C99_STDLIB 1
+/* #undef _GLIBCXX98_USE_C99_STDLIB */
 
 /* Define if C99 functions or macros in <wchar.h> should be imported in
    <cwchar> in namespace std for C++98. */
-#define _GLIBCXX98_USE_C99_WCHAR 1
+/* #undef _GLIBCXX98_USE_C99_WCHAR */
 
 /* Define if the compiler supports C++11 atomics. */
 #define _GLIBCXX_ATOMIC_BUILTINS 1
@@ -1567,7 +1567,7 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_PTRDIFF_T_IS_INT */
 
 /* Define if using setrlimit to set resource limits during "make check" */
-#define _GLIBCXX_RES_LIMITS 1
+/* #undef _GLIBCXX_RES_LIMITS */
 
 /* Define if size_t is unsigned int. */
 /* #undef _GLIBCXX_SIZE_T_IS_UINT */
@@ -1585,13 +1585,13 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_STDIO_SEEK_END */
 
 /* Define to use symbol versioning in the shared library. */
-#define _GLIBCXX_SYMVER 1
+/* #undef _GLIBCXX_SYMVER */
 
 /* Define to use darwin versioning in the shared library. */
 /* #undef _GLIBCXX_SYMVER_DARWIN */
 
 /* Define to use GNU versioning in the shared library. */
-#define _GLIBCXX_SYMVER_GNU 1
+/* #undef _GLIBCXX_SYMVER_GNU */
 
 /* Define to use GNU namespace versioning in the shared library. */
 /* #undef _GLIBCXX_SYMVER_GNU_NAMESPACE */
@@ -1601,11 +1601,11 @@ namespace __gnu_cxx
 
 /* Define if C11 functions in <uchar.h> should be imported into namespace std
    in <cuchar>. */
-#define _GLIBCXX_USE_C11_UCHAR_CXX11 1
+/* #undef _GLIBCXX_USE_C11_UCHAR_CXX11 */
 
 /* Define if C99 functions or macros from <wchar.h>, <math.h>, <complex.h>,
    <stdio.h>, and <stdlib.h> can be used or exposed. */
-#define _GLIBCXX_USE_C99 1
+/* #undef _GLIBCXX_USE_C99 */
 
 /* Define if C99 inverse trig functions in <complex.h> should be used in
    <complex>. Using compiler builtins for these functions requires
@@ -1615,61 +1615,61 @@ namespace __gnu_cxx
 /* Define if C99 functions in <complex.h> should be used in <tr1/complex>.
    Using compiler builtins for these functions requires corresponding C99
    library functions to be present. */
-#define _GLIBCXX_USE_C99_COMPLEX_TR1 1
+/* #undef _GLIBCXX_USE_C99_COMPLEX_TR1 */
 
 /* Define if C99 functions in <ctype.h> should be imported in <cctype> in
    namespace std for C++11. */
-#define _GLIBCXX_USE_C99_CTYPE 1
+/* #undef _GLIBCXX_USE_C99_CTYPE */
 
 /* Define if C99 functions in <ctype.h> should be imported in <tr1/cctype> in
    namespace std::tr1. */
-#define _GLIBCXX_USE_C99_CTYPE_TR1 1
+/* #undef _GLIBCXX_USE_C99_CTYPE_TR1 */
 
 /* Define if C99 functions in <fenv.h> should be imported in <cfenv> in
    namespace std for C++11. */
-#define _GLIBCXX_USE_C99_FENV 1
+/* #undef _GLIBCXX_USE_C99_FENV */
 
 /* Define if C99 functions in <fenv.h> should be imported in <tr1/cfenv> in
    namespace std::tr1. */
-#define _GLIBCXX_USE_C99_FENV_TR1 1
+/* #undef _GLIBCXX_USE_C99_FENV_TR1 */
 
 /* Define if C99 functions in <inttypes.h> should be imported in <cinttypes>
    in namespace std in C++11. */
-#define _GLIBCXX_USE_C99_INTTYPES 1
+/* #undef _GLIBCXX_USE_C99_INTTYPES */
 
 /* Define if C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
-#define _GLIBCXX_USE_C99_INTTYPES_TR1 1
+/* #undef _GLIBCXX_USE_C99_INTTYPES_TR1 */
 
 /* Define if wchar_t C99 functions in <inttypes.h> should be imported in
    <cinttypes> in namespace std in C++11. */
-#define _GLIBCXX_USE_C99_INTTYPES_WCHAR_T 1
+/* #undef _GLIBCXX_USE_C99_INTTYPES_WCHAR_T */
 
 /* Define if wchar_t C99 functions in <inttypes.h> should be imported in
    <tr1/cinttypes> in namespace std::tr1. */
-#define _GLIBCXX_USE_C99_INTTYPES_WCHAR_T_TR1 1
+/* #undef _GLIBCXX_USE_C99_INTTYPES_WCHAR_T_TR1 */
 
 /* Define if C99 functions in <math.h> should be imported in <cmath> in
    namespace std for C++11. */
-#define _GLIBCXX_USE_C99_MATH_FUNCS 1
+/* #undef _GLIBCXX_USE_C99_MATH_FUNCS */
 
 /* Define if C99 functions or macros in <math.h> should be imported in
    <tr1/cmath> in namespace std::tr1. */
-#define _GLIBCXX_USE_C99_MATH_TR1 1
+/* #undef _GLIBCXX_USE_C99_MATH_TR1 */
 
 /* Define if C99 types in <stdint.h> should be imported in <cstdint> in
    namespace std for C++11. */
-#define _GLIBCXX_USE_C99_STDINT 1
+/* #undef _GLIBCXX_USE_C99_STDINT */
 
 /* Define if C99 types in <stdint.h> should be imported in <tr1/cstdint> in
    namespace std::tr1. */
-#define _GLIBCXX_USE_C99_STDINT_TR1 1
+/* #undef _GLIBCXX_USE_C99_STDINT_TR1 */
 
 /* Define if usable chdir is available in <unistd.h>. */
-#define _GLIBCXX_USE_CHDIR 1
+/* #undef _GLIBCXX_USE_CHDIR */
 
 /* Define if usable chmod is available in <sys/stat.h>. */
-#define _GLIBCXX_USE_CHMOD 1
+/* #undef _GLIBCXX_USE_CHMOD */
 
 /* Defined if clock_gettime syscall has monotonic and realtime clock support.
    */
@@ -1686,44 +1686,44 @@ namespace __gnu_cxx
 
 /* Define if ISO/IEC TR 24733 decimal floating point types are supported on
    this host. */
-#define _GLIBCXX_USE_DECIMAL_FLOAT 1
+/* #undef _GLIBCXX_USE_DECIMAL_FLOAT */
 
 /* Define if /dev/random and /dev/urandom are available for
    std::random_device. */
-#define _GLIBCXX_USE_DEV_RANDOM 1
+/* #undef _GLIBCXX_USE_DEV_RANDOM */
 
 /* Define if fchmod is available in <sys/stat.h>. */
-#define _GLIBCXX_USE_FCHMOD 1
+/* #undef _GLIBCXX_USE_FCHMOD */
 
 /* Define if fchmodat is available in <sys/stat.h>. */
-#define _GLIBCXX_USE_FCHMODAT 1
+/* #undef _GLIBCXX_USE_FCHMODAT */
 
 /* Define if fseeko and ftello are available. */
-#define _GLIBCXX_USE_FSEEKO_FTELLO 1
+/* #undef _GLIBCXX_USE_FSEEKO_FTELLO */
 
 /* Define if usable getcwd is available in <unistd.h>. */
-#define _GLIBCXX_USE_GETCWD 1
+/* #undef _GLIBCXX_USE_GETCWD */
 
 /* Defined if gettimeofday is available. */
-#define _GLIBCXX_USE_GETTIMEOFDAY 1
+/* #undef _GLIBCXX_USE_GETTIMEOFDAY */
 
 /* Define if get_nprocs is available in <sys/sysinfo.h>. */
-#define _GLIBCXX_USE_GET_NPROCS 1
+/* #undef _GLIBCXX_USE_GET_NPROCS */
 
 /* Define if init_priority should be used for iostream initialization. */
 #define _GLIBCXX_USE_INIT_PRIORITY_ATTRIBUTE 1
 
 /* Define if LFS support is available. */
-#define _GLIBCXX_USE_LFS 1
+/* #undef _GLIBCXX_USE_LFS */
 
 /* Define if code specialized for long long should be used. */
 #define _GLIBCXX_USE_LONG_LONG 1
 
 /* Define if lstat is available in <sys/stat.h>. */
-#define _GLIBCXX_USE_LSTAT 1
+/* #undef _GLIBCXX_USE_LSTAT */
 
 /* Define if usable mkdir is available in <sys/stat.h>. */
-#define _GLIBCXX_USE_MKDIR 1
+/* #undef _GLIBCXX_USE_MKDIR */
 
 /* Defined if nanosleep is available. */
 /* #undef _GLIBCXX_USE_NANOSLEEP */
@@ -1732,36 +1732,36 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_USE_NLS */
 
 /* Define if nl_langinfo_l should be used for std::text_encoding. */
-#define _GLIBCXX_USE_NL_LANGINFO_L 1
+/* #undef _GLIBCXX_USE_NL_LANGINFO_L */
 
 /* Define if pthreads_num_processors_np is available in <pthread.h>. */
 /* #undef _GLIBCXX_USE_PTHREADS_NUM_PROCESSORS_NP */
 
 /* Define if pthread_cond_clockwait is available in <pthread.h>. */
-#define _GLIBCXX_USE_PTHREAD_COND_CLOCKWAIT 1
+/* #undef _GLIBCXX_USE_PTHREAD_COND_CLOCKWAIT */
 
 /* Define if pthread_mutex_clocklock is available in <pthread.h>. */
-#define _GLIBCXX_USE_PTHREAD_MUTEX_CLOCKLOCK (_GLIBCXX_TSAN==0)
+/* #undef _GLIBCXX_USE_PTHREAD_MUTEX_CLOCKLOCK */
 
 /* Define if pthread_rwlock_clockrdlock and pthread_rwlock_clockwrlock are
    available in <pthread.h>. */
-#define _GLIBCXX_USE_PTHREAD_RWLOCK_CLOCKLOCK 1
+/* #undef _GLIBCXX_USE_PTHREAD_RWLOCK_CLOCKLOCK */
 
 /* Define if POSIX read/write locks are available in <gthr.h>. */
 /* #undef _GLIBCXX_USE_PTHREAD_RWLOCK_T */
 
 /* Define if /dev/random and /dev/urandom are available for the random_device
    of TR1 (Chapter 5.1). */
-#define _GLIBCXX_USE_RANDOM_TR1 1
+/* #undef _GLIBCXX_USE_RANDOM_TR1 */
 
 /* Define if usable realpath is available in <stdlib.h>. */
-#define _GLIBCXX_USE_REALPATH 1
+/* #undef _GLIBCXX_USE_REALPATH */
 
 /* Defined if sched_yield is available. */
 /* #undef _GLIBCXX_USE_SCHED_YIELD */
 
 /* Define if _SC_NPROCESSORS_ONLN is available in <unistd.h>. */
-#define _GLIBCXX_USE_SC_NPROCESSORS_ONLN 1
+/* #undef _GLIBCXX_USE_SC_NPROCESSORS_ONLN */
 
 /* Define if _SC_NPROC_ONLN is available in <unistd.h>. */
 /* #undef _GLIBCXX_USE_SC_NPROC_ONLN */
@@ -1773,31 +1773,31 @@ namespace __gnu_cxx
 /* #undef _GLIBCXX_USE_STDIO_PURE */
 
 /* Define if struct stat has timespec members. */
-#define _GLIBCXX_USE_ST_MTIM 1
+/* #undef _GLIBCXX_USE_ST_MTIM */
 
 /* Define if sysctl(), CTL_HW and HW_NCPU are available in <sys/sysctl.h>. */
 /* #undef _GLIBCXX_USE_SYSCTL_HW_NCPU */
 
 /* Define if obsolescent tmpnam is available in <stdio.h>. */
-#define _GLIBCXX_USE_TMPNAM 1
+/* #undef _GLIBCXX_USE_TMPNAM */
 
 /* Define if c8rtomb and mbrtoc8 functions in <uchar.h> should be imported
    into namespace std in <cuchar> for C++20. */
-#define _GLIBCXX_USE_UCHAR_C8RTOMB_MBRTOC8_CXX20 1
+/* #undef _GLIBCXX_USE_UCHAR_C8RTOMB_MBRTOC8_CXX20 */
 
 /* Define if c8rtomb and mbrtoc8 functions in <uchar.h> should be imported
    into namespace std in <cuchar> for -fchar8_t. */
-#define _GLIBCXX_USE_UCHAR_C8RTOMB_MBRTOC8_FCHAR8_T 1
+/* #undef _GLIBCXX_USE_UCHAR_C8RTOMB_MBRTOC8_FCHAR8_T */
 
 /* Define if utime is available in <utime.h>. */
-#define _GLIBCXX_USE_UTIME 1
+/* #undef _GLIBCXX_USE_UTIME */
 
 /* Define if utimensat and UTIME_OMIT are available in <sys/stat.h> and
    AT_FDCWD in <fcntl.h>. */
-#define _GLIBCXX_USE_UTIMENSAT 1
+/* #undef _GLIBCXX_USE_UTIMENSAT */
 
 /* Define if code specialized for wchar_t should be used. */
-#define _GLIBCXX_USE_WCHAR_T 1
+/* #undef _GLIBCXX_USE_WCHAR_T */
 
 /* Defined if Sleep exists. */
 /* #undef _GLIBCXX_USE_WIN32_SLEEP */
