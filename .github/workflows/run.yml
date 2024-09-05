@@ -1,9 +1,13 @@
-name: Install libstdc++ headers
+name: Build and install GCC headers
 
 on: [push]
 
 jobs:
   install-headers:
+    strategy:
+      matrix:
+        target_arch: [i686, x86_64, aarch64, loongarch64, riscv64]
+
     runs-on: ubuntu-latest
     container: archlinux:latest
 
@@ -22,14 +26,17 @@ jobs:
           set -ex
           wget https://gist.github.com/mintsuki/233faa49819aa91d7d2f8502ceaa94fe/raw/27565ee6baf7fa03105bab3fe6c3e50efa022558/make_toolchain.sh
           chmod +x ./make_toolchain.sh
-          TARGET="x86_64-elf" ./make_toolchain.sh
+          TARGET="${{matrix.target_arch}}-elf" ./make_toolchain.sh
 
       - name: Move headers
         run: |
           set -ex
-          mv ./include/features.h ./
-          rm -rf include && mv toolchain/include/c++/* include
-          mv ./features.h ./include/
+          mv ./x86_64/include/features.h ./
+          mkdir -p ${{matrix.target_arch}}
+          rm -rf ${{matrix.target_arch}}/include
+          mv toolchain/include/c++/* ${{matrix.target_arch}}/include
+          mv toolchain/lib/gcc/${{matrix.target_arch}}-elf/*/include/* ${{matrix.target_arch}}/include/
+          mv ./features.h ./${{matrix.target_arch}}/include/
 
       - name: Push
         run: |
@@ -37,7 +44,13 @@ jobs:
           git config user.name 'mintsuki'
           git config user.email 'mintsuki@users.noreply.github.com'
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/osdev0/libstdcxx-headers.git
-          git fetch --all
-          git add include
-          git commit -m "Upload headers [ci skip]"
-          git push origin master
+          while true; do \
+            git pull --all; \
+            git add ${{matrix.target_arch}}; \
+            git commit -m "Upload headers (${{matrix.target_arch}}) [ci skip]"; \
+            if git push origin master; then \
+              break; \
+            else \
+              git reset HEAD~1; \
+            fi; \
+          done

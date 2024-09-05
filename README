@@ -1,0 +1,10 @@
+libstdcxx-headers
+=================
+
+Headers from GCC's libstdc++ that can be used in a freestanding environment.
+
+Relevant licenses apply.
+
+Note: These headers depend on the associated freestanding C headers to work.
+      Please do not use alternative freestanding C header implementations with
+      these headers.
