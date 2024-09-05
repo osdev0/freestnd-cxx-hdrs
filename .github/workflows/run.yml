@@ -27,8 +27,6 @@ jobs:
       - name: Build toolchain
         run: |
           set -ex
-          wget https://gist.github.com/mintsuki/0fa16d24ffec7cd473ab7da4a4eec1dc/raw/15259713aeb71efdb952f1de4016a66f26bdf6da/make_toolchain.sh
-          chmod +x ./make_toolchain.sh
           TARGET="${{matrix.target_arch}}-elf" ./make_toolchain.sh
 
       - name: Move headers
@@ -40,8 +38,7 @@ jobs:
           mv toolchain/lib/gcc/${{matrix.target_arch}}-elf/*/include/* ${{matrix.target_arch}}/include/
           cp -rp ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf/* ${{matrix.target_arch}}/include/
           rm -rf ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf
-          ( cd ${{matrix.target_arch}} && patch -p0 <../patches/stdint.patch )
-          ( cd ${{matrix.target_arch}} && patch -p0 <../patches/stddef.patch )
+          ( cd ${{matrix.target_arch}} && patch -p0 <../clang-compat.patch )
 
       - name: Push
         run: |

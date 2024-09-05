@@ -1,0 +1,166 @@
+diff '--color=auto' -urN include/stddef.h include-patched/stddef.h
+--- include/stddef.h	2024-09-05 07:27:19.393557253 +0200
++++ include-patched/stddef.h	2024-09-05 07:55:12.109152021 +0200
+@@ -430,7 +430,7 @@
+      use __float128 here; that is only available on some
+      architectures, but only on i386 is extra alignment needed for
+      __float128.  */
+-#ifdef __i386__
++#if defined(__i386__) && !defined(__clang__)
+   __float128 __max_align_f128 __attribute__((__aligned__(__alignof(__float128))));
+ #endif
+ } max_align_t;
+diff '--color=auto' -urN include/stdint-gcc.h include-patched/stdint-gcc.h
+--- include/stdint-gcc.h	2024-09-05 07:27:19.393557253 +0200
++++ include-patched/stdint-gcc.h	2024-09-05 07:28:40.819840459 +0200
+@@ -236,26 +236,59 @@
+ #if (!defined __cplusplus || __cplusplus >= 201103L \
+      || defined __STDC_CONSTANT_MACROS)
+ 
+-#undef INT8_C
+-#define INT8_C(c) __INT8_C(c)
+-#undef INT16_C
+-#define INT16_C(c) __INT16_C(c)
+-#undef INT32_C
+-#define INT32_C(c) __INT32_C(c)
+-#undef INT64_C
+-#define INT64_C(c) __INT64_C(c)
+-#undef UINT8_C
+-#define UINT8_C(c) __UINT8_C(c)
+-#undef UINT16_C
+-#define UINT16_C(c) __UINT16_C(c)
+-#undef UINT32_C
+-#define UINT32_C(c) __UINT32_C(c)
+-#undef UINT64_C
+-#define UINT64_C(c) __UINT64_C(c)
+-#undef INTMAX_C
+-#define INTMAX_C(c) __INTMAX_C(c)
+-#undef UINTMAX_C
+-#define UINTMAX_C(c) __UINTMAX_C(c)
++/* Clang and GCC have different mechanisms for INT32_C and friends. */
++#ifdef __clang__
++#   ifndef __FSTD_HDRS_C_JOIN
++#       define __FSTD_HDRS_C_EXPAND_JOIN(x, suffix) x ## suffix
++#       define __FSTD_HDRS_C_JOIN(x, suffix) __FSTD_HDRS_C_EXPAND_JOIN(x, suffix)
++#   endif
++
++#   undef INT8_C
++#   define INT8_C(x) __FSTD_HDRS_C_JOIN(x, __INT8_C_SUFFIX__)
++#   undef INT16_C
++#   define INT16_C(x) __FSTD_HDRS_C_JOIN(x, __INT16_C_SUFFIX__)
++#   undef INT32_C
++#   define INT32_C(x) __FSTD_HDRS_C_JOIN(x, __INT32_C_SUFFIX__)
++#   undef INT64_C
++#   define INT64_C(x) __FSTD_HDRS_C_JOIN(x, __INT64_C_SUFFIX__)
++
++#   undef UINT8_C
++#   define UINT8_C(x) __FSTD_HDRS_C_JOIN(x, __UINT8_C_SUFFIX__)
++#   undef UINT16_C
++#   define UINT16_C(x) __FSTD_HDRS_C_JOIN(x, __UINT16_C_SUFFIX__)
++#   undef UINT32_C
++#   define UINT32_C(x) __FSTD_HDRS_C_JOIN(x, __UINT32_C_SUFFIX__)
++#   undef UINT64_C
++#   define UINT64_C(x) __FSTD_HDRS_C_JOIN(x, __UINT64_C_SUFFIX__)
++
++#   undef INTMAX_C
++#   define INTMAX_C(x) __FSTD_HDRS_C_JOIN(x, __INTMAX_C_SUFFIX__)
++#   undef UINTMAX_C
++#   define UINTMAX_C(x) __FSTD_HDRS_C_JOIN(x, __UINTMAX_C_SUFFIX__)
++#else
++#   undef INT8_C
++#   define INT8_C(x) __INT8_C(x)
++#   undef INT16_C
++#   define INT16_C(x) __INT16_C(x)
++#   undef INT32_C
++#   define INT32_C(x) __INT32_C(x)
++#   undef INT64_C
++#   define INT64_C(x) __INT64_C(x)
++
++#   undef UINT8_C
++#   define UINT8_C(x) __UINT8_C(x)
++#   undef UINT16_C
++#   define UINT16_C(x) __UINT16_C(x)
++#   undef UINT32_C
++#   define UINT32_C(x) __UINT32_C(x)
++#   undef UINT64_C
++#   define UINT64_C(x) __UINT64_C(x)
++
++#   undef INTMAX_C
++#   define INTMAX_C(x) __INTMAX_C(x)
++#   undef UINTMAX_C
++#   define UINTMAX_C(x) __UINTMAX_C(x)
++#endif
+ 
+ #endif /* (!defined __cplusplus || __cplusplus >= 201103L
+ 	   || defined __STDC_CONSTANT_MACROS) */
+diff '--color=auto' -urN include/limits.h include-patched/limits.h
+--- include/limits.h	2024-09-05 04:31:21.782703031 +0200
++++ include-patched/limits.h	2024-09-06 01:12:23.798468521 +0200
+@@ -126,12 +126,21 @@
+ #if (defined __STDC_WANT_IEC_60559_BFP_EXT__ \
+      || (defined (__STDC_VERSION__) && __STDC_VERSION__ > 201710L))
+ /* TS 18661-1 / C23 widths of integer types.  */
++#if defined (__clang__)
++# undef CHAR_WIDTH
++# define CHAR_WIDTH CHAR_BIT
++# undef SCHAR_WIDTH
++# define SCHAR_WIDTH CHAR_BIT
++# undef UCHAR_WIDTH
++# define UCHAR_WIDTH CHAR_BIT
++#else
+ # undef CHAR_WIDTH
+ # define CHAR_WIDTH __SCHAR_WIDTH__
+ # undef SCHAR_WIDTH
+ # define SCHAR_WIDTH __SCHAR_WIDTH__
+ # undef UCHAR_WIDTH
+ # define UCHAR_WIDTH __SCHAR_WIDTH__
++#endif
+ # undef SHRT_WIDTH
+ # define SHRT_WIDTH __SHRT_WIDTH__
+ # undef USHRT_WIDTH
+@@ -144,11 +153,18 @@
+ # define LONG_WIDTH __LONG_WIDTH__
+ # undef ULONG_WIDTH
+ # define ULONG_WIDTH __LONG_WIDTH__
++#if defined(__clang__)
++# undef LLONG_WIDTH
++# define LLONG_WIDTH __LLONG_WIDTH__
++# undef ULLONG_WIDTH
++# define ULLONG_WIDTH __LLONG_WIDTH__
++#else
+ # undef LLONG_WIDTH
+ # define LLONG_WIDTH __LONG_LONG_WIDTH__
+ # undef ULLONG_WIDTH
+ # define ULLONG_WIDTH __LONG_LONG_WIDTH__
+ #endif
++#endif
+ 
+ #if defined (__STDC_VERSION__) && __STDC_VERSION__ > 201710L
+ /* C23 width and limit of _Bool.  */
+diff '--color=auto' -urN include/stdint-gcc.h include-patched/stdint-gcc.h
+--- include/stdint-gcc.h	2024-09-06 00:26:21.287515779 +0200
++++ include-patched/stdint-gcc.h	2024-09-06 01:05:07.176103182 +0200
+@@ -215,7 +215,7 @@
+ #undef SIG_ATOMIC_MAX
+ #define SIG_ATOMIC_MAX __SIG_ATOMIC_MAX__
+ #undef SIG_ATOMIC_MIN
+-#define SIG_ATOMIC_MIN __SIG_ATOMIC_MIN__
++#define SIG_ATOMIC_MIN (-SIG_ATOMIC_MAX - 1)
+ 
+ #undef SIZE_MAX
+ #define SIZE_MAX __SIZE_MAX__
+@@ -223,12 +223,12 @@
+ #undef WCHAR_MAX
+ #define WCHAR_MAX __WCHAR_MAX__
+ #undef WCHAR_MIN
+-#define WCHAR_MIN __WCHAR_MIN__
++#define WCHAR_MIN (-WCHAR_MAX - 1)
+ 
+ #undef WINT_MAX
+ #define WINT_MAX __WINT_MAX__
+ #undef WINT_MIN
+-#define WINT_MIN __WINT_MIN__
++#define WINT_MIN (-WINT_MAX - 1)
+ 
+ #endif /* (!defined __cplusplus || __cplusplus >= 201103L
+ 	   || defined __STDC_LIMIT_MACROS)  */
