@@ -50,7 +50,7 @@ jobs:
             git pull --all; \
             git add ${{matrix.target_arch}}; \
             git commit -m "Upload headers (${{matrix.target_arch}}) [ci skip]"; \
-            if git push origin master; then \
+            if git push origin trunk; then \
               break; \
             else \
               git reset HEAD~1; \
