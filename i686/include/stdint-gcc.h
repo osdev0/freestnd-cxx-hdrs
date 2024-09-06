@@ -215,7 +215,7 @@ typedef __UINTMAX_TYPE__ uintmax_t;
 #undef SIG_ATOMIC_MAX
 #define SIG_ATOMIC_MAX __SIG_ATOMIC_MAX__
 #undef SIG_ATOMIC_MIN
-#define SIG_ATOMIC_MIN __SIG_ATOMIC_MIN__
+#define SIG_ATOMIC_MIN (-SIG_ATOMIC_MAX - 1)
 
 #undef SIZE_MAX
 #define SIZE_MAX __SIZE_MAX__
@@ -223,12 +223,12 @@ typedef __UINTMAX_TYPE__ uintmax_t;
 #undef WCHAR_MAX
 #define WCHAR_MAX __WCHAR_MAX__
 #undef WCHAR_MIN
-#define WCHAR_MIN __WCHAR_MIN__
+#define WCHAR_MIN (-WCHAR_MAX - 1)
 
 #undef WINT_MAX
 #define WINT_MAX __WINT_MAX__
 #undef WINT_MIN
-#define WINT_MIN __WINT_MIN__
+#define WINT_MIN (-WINT_MAX - 1)
 
 #endif /* (!defined __cplusplus || __cplusplus >= 201103L
 	   || defined __STDC_LIMIT_MACROS)  */
