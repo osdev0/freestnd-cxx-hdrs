@@ -1,7 +1,7 @@
 prefix=@prefix@
-includedir=${prefix}/share/libstdcxx-headers/@architecture@/include
+includedir=${prefix}/share/freestnd-cxx-hdrs/@architecture@/include
 
-Name: libstdcxx-headers-@architecture@
+Name: freestnd-cxx-hdrs-@architecture@
 Description: Freestanding libstdc++ headers for @architecture@
 Version: undefined
 Cflags: -I${includedir}

@@ -12,8 +12,8 @@ all:
 .PHONY: install
 install:
 	mkdir -p "$(DESTDIR)$(PREFIX)/lib/pkgconfig"
-	mkdir -p "$(DESTDIR)$(PREFIX)/share/libstdcxx-headers"
+	mkdir -p "$(DESTDIR)$(PREFIX)/share/freestnd-cxx-hdrs"
 	for arch in aarch64 i686 loongarch64 riscv64 x86_64; do \
-		cp -r $$arch "$(DESTDIR)$(PREFIX)/share/libstdcxx-headers/"; \
-		sed "s/@architecture@/$$arch/g;s|@prefix@|$(PREFIX)|g" libstdcxx-headers.pc.in > "$(DESTDIR)$(PREFIX)/lib/pkgconfig/libstdcxx-headers-$$arch.pc"; \
+		cp -r $$arch "$(DESTDIR)$(PREFIX)/share/freestnd-cxx-hdrs/"; \
+		sed "s/@architecture@/$$arch/g;s|@prefix@|$(PREFIX)|g" freestnd-cxx-hdrs.pc.in > "$(DESTDIR)$(PREFIX)/lib/pkgconfig/freestnd-cxx-hdrs-$$arch.pc"; \
 	done
