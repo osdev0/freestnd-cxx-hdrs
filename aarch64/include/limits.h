@@ -126,12 +126,21 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 #if (defined __STDC_WANT_IEC_60559_BFP_EXT__ \
      || (defined (__STDC_VERSION__) && __STDC_VERSION__ > 201710L))
 /* TS 18661-1 / C23 widths of integer types.  */
+#if defined (__clang__)
+# undef CHAR_WIDTH
+# define CHAR_WIDTH CHAR_BIT
+# undef SCHAR_WIDTH
+# define SCHAR_WIDTH CHAR_BIT
+# undef UCHAR_WIDTH
+# define UCHAR_WIDTH CHAR_BIT
+#else
 # undef CHAR_WIDTH
 # define CHAR_WIDTH __SCHAR_WIDTH__
 # undef SCHAR_WIDTH
 # define SCHAR_WIDTH __SCHAR_WIDTH__
 # undef UCHAR_WIDTH
 # define UCHAR_WIDTH __SCHAR_WIDTH__
+#endif
 # undef SHRT_WIDTH
 # define SHRT_WIDTH __SHRT_WIDTH__
 # undef USHRT_WIDTH
@@ -144,10 +153,17 @@ see the files COPYING3 and COPYING.RUNTIME respectively.  If not, see
 # define LONG_WIDTH __LONG_WIDTH__
 # undef ULONG_WIDTH
 # define ULONG_WIDTH __LONG_WIDTH__
+#if defined(__clang__)
+# undef LLONG_WIDTH
+# define LLONG_WIDTH __LLONG_WIDTH__
+# undef ULLONG_WIDTH
+# define ULLONG_WIDTH __LLONG_WIDTH__
+#else
 # undef LLONG_WIDTH
 # define LLONG_WIDTH __LONG_LONG_WIDTH__
 # undef ULLONG_WIDTH
 # define ULLONG_WIDTH __LONG_LONG_WIDTH__
+#endif
 #endif
 
 #if defined (__STDC_VERSION__) && __STDC_VERSION__ > 201710L
