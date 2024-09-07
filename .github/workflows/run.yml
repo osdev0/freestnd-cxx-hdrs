@@ -47,7 +47,7 @@ jobs:
           while true; do \
             git pull --all; \
             git add ${{matrix.target_arch}}; \
-            git commit -m "Upload headers (${{matrix.target_arch}}) [ci skip]"; \
+            git commit --allow-empty -m "Upload headers (${{matrix.target_arch}}) [ci skip]"; \
             if git push origin trunk; then \
               break; \
             else \
