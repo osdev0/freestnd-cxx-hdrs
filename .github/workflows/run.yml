@@ -35,10 +35,8 @@ jobs:
           mkdir -p ${{matrix.target_arch}}
           rm -rf ${{matrix.target_arch}}/include
           mv toolchain/include/c++/* ${{matrix.target_arch}}/include
-          mv toolchain/lib/gcc/${{matrix.target_arch}}-elf/*/include/* ${{matrix.target_arch}}/include/
           cp -rp ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf/* ${{matrix.target_arch}}/include/
           rm -rf ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf
-          ( cd ${{matrix.target_arch}} && patch -p0 <../clang-compat.patch )
 
       - name: Push
         run: |
