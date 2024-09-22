@@ -1650,6 +1650,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       using __atomic_float<double>::operator=;
     };
 
+#if !(defined(__clang__) && !__STDC_HOSTED__) // clang in kernel context
   template<>
     struct atomic<long double> : __atomic_float<long double>
     {
@@ -1664,6 +1665,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
       using __atomic_float<long double>::operator=;
     };
+#endif
 
 #ifdef __STDCPP_FLOAT16_T__
   template<>
