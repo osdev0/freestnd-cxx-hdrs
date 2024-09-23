@@ -31,3 +31,42 @@ diff '--color=auto' -urN include/bits/stl_algobase.h include-patched/bits/stl_al
  #if !defined(__STRICT_ANSI__) && defined(_GLIBCXX_USE_FLOAT128)
    __extension__ inline _GLIBCXX_CONSTEXPR long long
    __size_to_integer(__float128 __n) { return (long long)__n; }
+diff '--color=auto' -urN include/limits include-patched/limits
+--- include/limits	2024-09-23 19:17:13.246614553 +0200
++++ include-patched/limits	2024-09-23 19:21:05.459515170 +0200
+@@ -113,6 +113,8 @@
+ 
+ // Default values.  Should be overridden in configuration files if necessary.
+ 
++#if !(defined(__clang__) && !__STDC_HOSTED__) // clang in kernel context
++
+ #ifndef __glibcxx_long_double_has_denorm_loss
+ #  define __glibcxx_long_double_has_denorm_loss false
+ #endif
+@@ -123,6 +125,8 @@
+ #  define __glibcxx_long_double_tinyness_before false
+ #endif
+ 
++#endif
++
+ // You should not need to define any macros below this point.
+ 
+ #define __glibcxx_signed_b(T,B)	((T)(-1) < 0)
+@@ -1815,6 +1819,8 @@
+ #undef __glibcxx_double_traps
+ #undef __glibcxx_double_tinyness_before
+ 
++#if !(defined(__clang__) && !__STDC_HOSTED__) // clang in kernel context
++
+   /// numeric_limits<long double> specialization.
+   template<>
+     struct numeric_limits<long double>
+@@ -1890,6 +1896,8 @@
+ #undef __glibcxx_long_double_traps
+ #undef __glibcxx_long_double_tinyness_before
+ 
++#endif
++
+ #define __glibcxx_concat3_(P,M,S) P ## M ## S
+ #define __glibcxx_concat3(P,M,S) __glibcxx_concat3_ (P,M,S)
+ 
