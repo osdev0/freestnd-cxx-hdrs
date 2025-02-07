@@ -15,7 +15,7 @@ if [ -z "$TARGET" ]; then
 fi
 
 if [ -z "$BINUTILSVERSION" ]; then
-    BINUTILSVERSION=2.43.1
+    BINUTILSVERSION=2.44
 fi
 
 if [ -z "$GCCVERSION" ]; then
