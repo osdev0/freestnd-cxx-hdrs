@@ -1,10 +1,6 @@
-MAKEFLAGS += -rR
 .SUFFIXES:
 
-override USER_VARIABLE = $(if $(filter $(origin $(1)),default undefined),$(eval override $(1) := $(2)))
-
-$(call USER_VARIABLE,DESTDIR,)
-$(call USER_VARIABLE,PREFIX,/usr/local)
+PREFIX := /usr/local
 
 .PHONY: all
 all:
