@@ -38,7 +38,7 @@ jobs:
           cp -rp ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf/* ${{matrix.target_arch}}/include/
           rm -rf ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf
           for f in patches/*; do \
-            ( cd ${{matrix.target_arch}} && patch -p0 <../$f ); \
+            ( cd ${{matrix.target_arch}} && patch -p0 <../$f && find . -name '*.orig' -delete ); \
           done
 
       - name: Push
