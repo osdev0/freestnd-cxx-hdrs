@@ -19,7 +19,7 @@ jobs:
         run: pacman --noconfirm -Syu && pacman --needed --noconfirm -S base-devel git autoconf automake wget
 
       - name: Check out repository code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Git config
         run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
