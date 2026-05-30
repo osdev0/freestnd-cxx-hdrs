@@ -1,6 +1,6 @@
 // Predefined symbols and macros -*- C++ -*-
 
-// Copyright (C) 1997-2024 Free Software Foundation, Inc.
+// Copyright (C) 1997-2026 Free Software Foundation, Inc.
 //
 // This file is part of the GNU ISO C++ Library.  This library is free
 // software; you can redistribute it and/or modify it under the
@@ -30,13 +30,23 @@
 #ifndef _GLIBCXX_CXX_CONFIG_H
 #define _GLIBCXX_CXX_CONFIG_H 1
 
+#ifdef _GLIBCXX_SYSHDR
 #pragma GCC system_header
+#endif
+
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wvariadic-macros"
+#if __cplusplus
+#pragma GCC diagnostic ignored "-Wc++11-extensions"
+#pragma GCC diagnostic ignored "-Wc++23-extensions" // bf16
+#endif
 
 // The major release number for the GCC release the C++ library belongs to.
-#define _GLIBCXX_RELEASE 14
+#define _GLIBCXX_RELEASE 16
 
 // The datestamp of the C++ library in compressed ISO date format.
-#define __GLIBCXX__ 20250523
+#undef __GLIBCXX__ /* The testsuite defines it to 99999999 to block PCH.  */
+#define __GLIBCXX__ 20260430
 
 // Macros for various attributes.
 //   _GLIBCXX_PURE
@@ -90,6 +100,8 @@
 //   _GLIBCXX20_DEPRECATED_SUGGEST( string-literal )
 //   _GLIBCXX23_DEPRECATED
 //   _GLIBCXX23_DEPRECATED_SUGGEST( string-literal )
+//   _GLIBCXX26_DEPRECATED
+//   _GLIBCXX26_DEPRECATED_SUGGEST( string-literal )
 #ifndef _GLIBCXX_USE_DEPRECATED
 # define _GLIBCXX_USE_DEPRECATED 1
 #endif
@@ -143,13 +155,21 @@
 # define _GLIBCXX23_DEPRECATED_SUGGEST(ALT)
 #endif
 
+#if defined(__DEPRECATED) && (__cplusplus >= 202400L)
+# define _GLIBCXX26_DEPRECATED [[__deprecated__]]
+# define _GLIBCXX26_DEPRECATED_SUGGEST(ALT) _GLIBCXX_DEPRECATED_SUGGEST(ALT)
+#else
+# define _GLIBCXX26_DEPRECATED
+# define _GLIBCXX26_DEPRECATED_SUGGEST(ALT)
+#endif
+
 // Macros for ABI tag attributes.
 #ifndef _GLIBCXX_ABI_TAG_CXX11
 # define _GLIBCXX_ABI_TAG_CXX11 __attribute ((__abi_tag__ ("cxx11")))
 #endif
 
 // Macro to warn about unused results.
-#if __cplusplus >= 201703L
+#if __cplusplus >= 201103L
 # define _GLIBCXX_NODISCARD [[__nodiscard__]]
 #else
 # define _GLIBCXX_NODISCARD
@@ -202,6 +222,14 @@
 # endif
 #endif
 
+#ifndef _GLIBCXX26_CONSTEXPR
+# if __cplusplus >= 202400L
+#  define _GLIBCXX26_CONSTEXPR constexpr
+# else
+#  define _GLIBCXX26_CONSTEXPR
+# endif
+#endif
+
 #ifndef _GLIBCXX17_INLINE
 # if __cplusplus >= 201703L
 #  define _GLIBCXX17_INLINE inline
@@ -233,7 +261,7 @@
 # if __cpp_exceptions
 #  define _GLIBCXX_THROW_OR_ABORT(_EXC) (throw (_EXC))
 # else
-#  define _GLIBCXX_THROW_OR_ABORT(_EXC) (__builtin_abort())
+#  define _GLIBCXX_THROW_OR_ABORT(_EXC) (__builtin_abort(), (void)(_EXC))
 # endif
 #endif
 
@@ -243,6 +271,12 @@
 #else
 #define _GLIBCXX_NOEXCEPT_PARM
 #define _GLIBCXX_NOEXCEPT_QUAL
+#endif
+
+#if __cpp_auto_cast
+# define _GLIBCXX_AUTO_CAST(X) auto(X)
+#else
+# define _GLIBCXX_AUTO_CAST(X) ::std::__decay_t<decltype((X))>(X)
 #endif
 
 // Macro for extern template, ie controlling template linkage via use
@@ -481,9 +515,20 @@ _GLIBCXX_END_NAMESPACE_VERSION
 // Define if compatibility should be provided for -mlong-double-64.
 #undef _GLIBCXX_LONG_DOUBLE_COMPAT
 
+// Use an alternate macro to test for clang, so as to provide an easy
+// workaround for systems (such as vxworks) whose headers require
+// __clang__ to be defined, even when compiling with GCC.
+#if !defined _GLIBCXX_CLANG && defined __clang__
+# define _GLIBCXX_CLANG __clang__
+// Turn -D_GLIBCXX_CLANG=0 into -U_GLIBCXX_CLANG, so that
+// _GLIBCXX_CLANG can be tested as defined, just like __clang__.
+#elif !_GLIBCXX_CLANG
+# undef _GLIBCXX_CLANG
+#endif
+
 // Define if compatibility should be provided for alternative 128-bit long
 // double formats. Not possible for Clang until __ibm128 is supported.
-#ifndef __clang__
+#ifndef _GLIBCXX_CLANG
 #undef _GLIBCXX_LONG_DOUBLE_ALT128_COMPAT
 #endif
 
@@ -555,9 +600,14 @@ namespace std
 #pragma GCC visibility pop
 }
 
+#ifndef _GLIBCXX_ASSERTIONS
+# if defined(_GLIBCXX_DEBUG)
 // Debug Mode implies checking assertions.
-#if defined(_GLIBCXX_DEBUG) && !defined(_GLIBCXX_ASSERTIONS)
-# define _GLIBCXX_ASSERTIONS 1
+#  define _GLIBCXX_ASSERTIONS 1
+# elif ! defined(__OPTIMIZE__) && ! defined(_GLIBCXX_NO_ASSERTIONS)
+// Enable assertions for unoptimized builds.
+#  define _GLIBCXX_ASSERTIONS 1
+# endif
 #endif
 
 // Disable std::string explicit instantiation declarations in order to assert.
@@ -574,7 +624,7 @@ namespace std
 {
 #pragma GCC visibility push(default)
   // Don't use <cassert> because this should be unaffected by NDEBUG.
-  extern "C++" _GLIBCXX_NORETURN
+  extern "C++" _GLIBCXX_NORETURN __attribute__((__cold__))
   void
   __glibcxx_assert_fail /* Called when a precondition violation is detected. */
     (const char* __file, int __line, const char* __function,
@@ -803,25 +853,40 @@ namespace std
 # endif
 #endif
 
-// Define if float has the IEEE binary32 format.
 #if __FLT_MANT_DIG__ == 24 \
   && __FLT_MIN_EXP__ == -125 \
   && __FLT_MAX_EXP__ == 128
+// Define if float has the IEEE binary32 format.
 # define _GLIBCXX_FLOAT_IS_IEEE_BINARY32 1
 #endif
 
-// Define if double has the IEEE binary64 format.
 #if __DBL_MANT_DIG__ == 53 \
   && __DBL_MIN_EXP__ == -1021 \
   && __DBL_MAX_EXP__ == 1024
+// Define if double has the IEEE binary64 format.
 # define _GLIBCXX_DOUBLE_IS_IEEE_BINARY64 1
+#elif __FLT_MANT_DIG__ == 24 \
+  && __FLT_MIN_EXP__ == -125 \
+  && __FLT_MAX_EXP__ == 128
+// Define if double has the IEEE binary32 format.
+# define _GLIBCXX_DOUBLE_IS_IEEE_BINARY32 1
 #endif
 
-// Define if long double has the IEEE binary128 format.
 #if __LDBL_MANT_DIG__ == 113 \
   && __LDBL_MIN_EXP__ == -16381 \
   && __LDBL_MAX_EXP__ == 16384
+// Define if long double has the IEEE binary128 format.
 # define _GLIBCXX_LDOUBLE_IS_IEEE_BINARY128 1
+#elif __LDBL_MANT_DIG__ == 53 \
+  && __LDBL_MIN_EXP__ == -1021 \
+  && __LDBL_MAX_EXP__ == 1024
+// Define if long double has the IEEE binary64 format.
+# define _GLIBCXX_LDOUBLE_IS_IEEE_BINARY64 1
+#elif __LDBL_MANT_DIG__ == 24 \
+  && __LDBL_MIN_EXP__ == -125 \
+  && __LDBL_MAX_EXP__ == 128
+// Define if long double has the IEEE binary32 format.
+# define _GLIBCXX_LDOUBLE_IS_IEEE_BINARY32 1
 #endif
 
 #if defined __cplusplus && defined __BFLT16_DIG__
@@ -834,7 +899,7 @@ namespace __gnu_cxx
 #ifdef __has_builtin
 # ifdef __is_identifier
 // Intel and older Clang require !__is_identifier for some built-ins:
-#  define _GLIBCXX_HAS_BUILTIN(B) __has_builtin(B) || ! __is_identifier(B)
+#  define _GLIBCXX_HAS_BUILTIN(B) (__has_builtin(B) || ! __is_identifier(B))
 # else
 #  define _GLIBCXX_HAS_BUILTIN(B) __has_builtin(B)
 # endif
@@ -860,6 +925,13 @@ namespace __gnu_cxx
 # define _GLIBCXX_USE_BUILTIN_TRAIT(BT) _GLIBCXX_HAS_BUILTIN(BT)
 #else
 # define _GLIBCXX_USE_BUILTIN_TRAIT(BT) 0
+#endif
+
+// Whether deducing this is usable either officially, if in C++23 mode, or
+// as an extension (Clang doesn't support the latter).
+#if __cpp_explicit_this_parameter \
+  || (__cplusplus >= 201103L && __GNUC__ >= 14 && !defined(_GLIBCXX_CLANG))
+# define _GLIBCXX_EXPLICIT_THIS_PARAMETER 202110L
 #endif
 
 // Mark code that should be ignored by the compiler, but seen by Doxygen.
@@ -890,6 +962,8 @@ namespace __gnu_cxx
 #include <pstl/pstl_config.h>
 #endif // __has_include
 #endif // C++17
+
+#pragma GCC diagnostic pop
 
 // End of prewritten config; the settings discovered at configure time follow.
 /* config.h.  Generated from config.h.in by configure.  */
@@ -964,6 +1038,9 @@ namespace __gnu_cxx
 
 /* Define to 1 if you have the `cosl' function. */
 /* #undef _GLIBCXX_HAVE_COSL */
+
+/* Define to 1 if you have the <debugapi.h> header file. */
+/* #undef _GLIBCXX_HAVE_DEBUGAPI_H */
 
 /* Define to 1 if you have the declaration of `strnlen', and to 0 if you
    don't. */
@@ -1043,6 +1120,9 @@ namespace __gnu_cxx
 
 /* Define to 1 if you have the `frexpl' function. */
 /* #undef _GLIBCXX_HAVE_FREXPL */
+
+/* Define if fwrite_unlocked can be used for std::print. */
+/* #undef _GLIBCXX_HAVE_FWRITE_UNLOCKED */
 
 /* Define if getentropy is available in <unistd.h>. */
 /* #undef _GLIBCXX_HAVE_GETENTROPY */
@@ -1209,10 +1289,6 @@ namespace __gnu_cxx
 /* Define to 1 if you have the `posix_memalign' function. */
 /* #undef _GLIBCXX_HAVE_POSIX_MEMALIGN */
 
-/* Define to 1 if POSIX Semaphores with sem_timedwait are available in
-   <semaphore.h>. */
-/* #undef _GLIBCXX_HAVE_POSIX_SEMAPHORE */
-
 /* Define to 1 if you have the `powf' function. */
 /* #undef _GLIBCXX_HAVE_POWF */
 
@@ -1334,6 +1410,9 @@ namespace __gnu_cxx
 /* Define to 1 if you have the <sys/param.h> header file. */
 /* #undef _GLIBCXX_HAVE_SYS_PARAM_H */
 
+/* Define to 1 if you have the <sys/ptrace.h> header file. */
+/* #undef _GLIBCXX_HAVE_SYS_PTRACE_H */
+
 /* Define to 1 if you have the <sys/resource.h> header file. */
 /* #undef _GLIBCXX_HAVE_SYS_RESOURCE_H */
 
@@ -1387,6 +1466,9 @@ namespace __gnu_cxx
 
 /* Define to 1 if you have the `timespec_get' function. */
 /* #undef _GLIBCXX_HAVE_TIMESPEC_GET */
+
+/* Define to 1 if you have the <tlhelp32.h> header file. */
+/* #undef _GLIBCXX_HAVE_TLHELP32_H */
 
 /* Define to 1 if the target supports thread-local storage. */
 /* #undef _GLIBCXX_HAVE_TLS */
@@ -1459,28 +1541,28 @@ namespace __gnu_cxx
 #define _GLIBCXX_LT_OBJDIR ".libs/"
 
 /* Name of package */
-/* #undef _GLIBCXX_PACKAGE */
+// /* #undef PACKAGE */
 
 /* Define to the address where bug reports for this package should be sent. */
-#define _GLIBCXX_PACKAGE_BUGREPORT ""
+// #define PACKAGE_BUGREPORT ""
 
 /* Define to the full name of this package. */
-#define _GLIBCXX_PACKAGE_NAME "package-unused"
+// #define PACKAGE_NAME "package-unused"
 
 /* Define to the full name and version of this package. */
-#define _GLIBCXX_PACKAGE_STRING "package-unused version-unused"
+// #define PACKAGE_STRING "package-unused version-unused"
 
 /* Define to the one symbol short name of this package. */
-#define _GLIBCXX_PACKAGE_TARNAME "libstdc++"
+// #define PACKAGE_TARNAME "libstdc++"
 
 /* Define to the home page for this package. */
-#define _GLIBCXX_PACKAGE_URL ""
+// #define PACKAGE_URL ""
 
 /* Define to the version of this package. */
-#define _GLIBCXX_PACKAGE__GLIBCXX_VERSION "version-unused"
+// #define PACKAGE_VERSION "version-unused"
 
 /* Define to 1 if you have the ANSI C header files. */
-/* #undef _GLIBCXX_STDC_HEADERS */
+/* #undef STDC_HEADERS */
 
 /* Version number of package */
 /* #undef _GLIBCXX_VERSION */
@@ -1535,8 +1617,8 @@ namespace __gnu_cxx
    <cwchar> in namespace std for C++98. */
 /* #undef _GLIBCXX98_USE_C99_WCHAR */
 
-/* Define if the compiler supports C++11 atomics. */
-#define _GLIBCXX_ATOMIC_BUILTINS 1
+/* Define if the compiler supports native atomics for _Atomic_word. */
+#define _GLIBCXX_ATOMIC_WORD_BUILTINS 1
 
 /* Define if global objects can be aligned to
    std::hardware_destructive_interference_size. */
@@ -1716,6 +1798,9 @@ namespace __gnu_cxx
 /* Define if get_nprocs is available in <sys/sysinfo.h>. */
 /* #undef _GLIBCXX_USE_GET_NPROCS */
 
+/* Define if Glibc FILE internals should be used for std::print. */
+/* #undef _GLIBCXX_USE_GLIBC_STDIO_EXT */
+
 /* Define if init_priority should be used for iostream initialization. */
 #define _GLIBCXX_USE_INIT_PRIORITY_ATTRIBUTE 1
 
@@ -1740,6 +1825,9 @@ namespace __gnu_cxx
 /* Define if nl_langinfo_l should be used for std::text_encoding. */
 /* #undef _GLIBCXX_USE_NL_LANGINFO_L */
 
+/* Define if /proc/self/status should be used for <debugging>. */
+/* #undef _GLIBCXX_USE_PROC_SELF_STATUS */
+
 /* Define if pthreads_num_processors_np is available in <pthread.h>. */
 /* #undef _GLIBCXX_USE_PTHREADS_NUM_PROCESSORS_NP */
 
@@ -1755,6 +1843,9 @@ namespace __gnu_cxx
 
 /* Define if POSIX read/write locks are available in <gthr.h>. */
 /* #undef _GLIBCXX_USE_PTHREAD_RWLOCK_T */
+
+/* Define if ptrace should be used for std::is_debugger_present. */
+/* #undef _GLIBCXX_USE_PTRACE */
 
 /* Define if /dev/random and /dev/urandom are available for the random_device
    of TR1 (Chapter 5.1). */
@@ -1775,8 +1866,14 @@ namespace __gnu_cxx
 /* Define if sendfile is available in <sys/sendfile.h>. */
 /* #undef _GLIBCXX_USE_SENDFILE */
 
+/* Define if flockfile and putc_unlocked should be used for std::print. */
+/* #undef _GLIBCXX_USE_STDIO_LOCKING */
+
 /* Define to restrict std::__basic_file<> to stdio APIs. */
 /* #undef _GLIBCXX_USE_STDIO_PURE */
+
+/* Define if struct tm has a tm_zone member. */
+/* #undef _GLIBCXX_USE_STRUCT_TM_TM_ZONE */
 
 /* Define if struct stat has timespec members. */
 /* #undef _GLIBCXX_USE_ST_MTIM */
