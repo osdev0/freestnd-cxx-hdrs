@@ -1,6 +1,6 @@
 // <numeric> -*- C++ -*-
 
-// Copyright (C) 2001-2024 Free Software Foundation, Inc.
+// Copyright (C) 2001-2026 Free Software Foundation, Inc.
 //
 // This file is part of the GNU ISO C++ Library.  This library is free
 // software; you can redistribute it and/or modify it under the
@@ -55,10 +55,12 @@
 #ifndef _GLIBCXX_NUMERIC
 #define _GLIBCXX_NUMERIC 1
 
+#ifdef _GLIBCXX_SYSHDR
 #pragma GCC system_header
+#endif
 
 #include <bits/c++config.h>
-#include <bits/stl_iterator_base_types.h>
+#include <bits/stl_iterator_base_funcs.h>
 #include <bits/stl_numeric.h>
 
 #ifdef _GLIBCXX_PARALLEL
@@ -79,6 +81,7 @@
 # include <limits>
 #endif
 
+#define __glibcxx_want_algorithm_iterator_requirements
 #define __glibcxx_want_constexpr_numeric
 #define __glibcxx_want_gcd
 #define __glibcxx_want_gcd_lcm
@@ -90,7 +93,7 @@
 #include <bits/version.h>
 
 #if __glibcxx_ranges_iota >= 202202L // C++ >= 23
-# include <bits/ranges_algobase.h> // for ranges::iota
+# include <bits/ranges_algobase.h> // for ranges::out_value_result
 #endif
 
 #ifdef __glibcxx_saturation_arithmetic // C++ >= 26
@@ -296,7 +299,7 @@ namespace __detail
       static_assert(is_invocable_r_v<_Tp, _BinaryOperation&, __ref, _Tp&>);
       static_assert(is_invocable_r_v<_Tp, _BinaryOperation&, _Tp&, _Tp&>);
       static_assert(is_invocable_r_v<_Tp, _BinaryOperation&, __ref, __ref>);
-      if constexpr (__is_random_access_iter<_InputIterator>::value)
+      if constexpr (__is_any_random_access_iter<_InputIterator>::value)
 	{
 	  while ((__last - __first) >= 4)
 	    {
@@ -376,8 +379,8 @@ namespace __detail
 		     _BinaryOperation1 __binary_op1,
 		     _BinaryOperation2 __binary_op2)
     {
-      if constexpr (__and_v<__is_random_access_iter<_InputIterator1>,
-			    __is_random_access_iter<_InputIterator2>>)
+      if constexpr (__and_v<__is_any_random_access_iter<_InputIterator1>,
+			    __is_any_random_access_iter<_InputIterator2>>)
 	{
 	  while ((__last1 - __first1) >= 4)
 	    {
@@ -443,7 +446,7 @@ namespace __detail
     transform_reduce(_InputIterator __first, _InputIterator __last, _Tp __init,
 		     _BinaryOperation __binary_op, _UnaryOperation __unary_op)
     {
-      if constexpr (__is_random_access_iter<_InputIterator>::value)
+      if constexpr (__is_any_random_access_iter<_InputIterator>::value)
 	{
 	  while ((__last - __first) >= 4)
 	    {
@@ -580,7 +583,7 @@ namespace __detail
     {
       if (__first != __last)
 	{
-	  auto __init = *__first;
+	  auto __init = _GLIBCXX_ITER_MOVE(__first);
 	  *__result++ = __init;
 	  ++__first;
 	  if (__first != __last)
@@ -643,8 +646,8 @@ namespace __detail
     {
       while (__first != __last)
 	{
-	  auto __v = __init;
-	  __init = __binary_op(__init, __unary_op(*__first));
+	  auto __v = std::move(__init);
+	  __init = __binary_op(__v, __unary_op(*__first));
 	  ++__first;
 	  *__result++ = std::move(__v);
 	}
@@ -729,6 +732,38 @@ namespace __detail
 
   /// @} group numeric_ops
 #endif // C++17
+
+#if __glibcxx_ranges_iota >= 202202L // C++ >= 23
+namespace ranges
+{
+  template<typename _Out, typename _Tp>
+    using iota_result = out_value_result<_Out, _Tp>;
+
+  struct __iota_fn
+  {
+    template<input_or_output_iterator _Out, sentinel_for<_Out> _Sent, weakly_incrementable _Tp>
+      requires indirectly_writable<_Out, const _Tp&>
+      constexpr iota_result<_Out, _Tp>
+      operator()(_Out __first, _Sent __last, _Tp __value) const
+      {
+	while (__first != __last)
+	  {
+	    *__first = static_cast<const _Tp&>(__value);
+	    ++__first;
+	    ++__value;
+	  }
+	return {std::move(__first), std::move(__value)};
+      }
+
+    template<weakly_incrementable _Tp, output_range<const _Tp&> _Range>
+      constexpr iota_result<borrowed_iterator_t<_Range>, _Tp>
+      operator()(_Range&& __r, _Tp __value) const
+      { return (*this)(ranges::begin(__r), ranges::end(__r), std::move(__value)); }
+  };
+
+  inline constexpr __iota_fn iota{};
+} // namespace ranges
+#endif // __glibcxx_ranges_iota
 
 _GLIBCXX_END_NAMESPACE_VERSION
 } // namespace std

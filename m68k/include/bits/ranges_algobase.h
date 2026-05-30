@@ -1,6 +1,6 @@
 // Core algorithmic facilities -*- C++ -*-
 
-// Copyright (C) 2020-2024 Free Software Foundation, Inc.
+// Copyright (C) 2020-2026 Free Software Foundation, Inc.
 //
 // This file is part of the GNU ISO C++ Library.  This library is free
 // software; you can redistribute it and/or modify it under the
@@ -92,33 +92,6 @@ namespace ranges
 	operator out_value_result<_Out2, _Tp2>() &&
 	{ return {std::move(out), std::move(value)}; }
     };
-
-  template<typename _Out, typename _Tp>
-    using iota_result = out_value_result<_Out, _Tp>;
-
-  struct __iota_fn
-  {
-    template<input_or_output_iterator _Out, sentinel_for<_Out> _Sent, weakly_incrementable _Tp>
-      requires indirectly_writable<_Out, const _Tp&>
-      constexpr iota_result<_Out, _Tp>
-      operator()(_Out __first, _Sent __last, _Tp __value) const
-      {
-	while (__first != __last)
-	  {
-	    *__first = static_cast<const _Tp&>(__value);
-	    ++__first;
-	    ++__value;
-	  }
-	return {std::move(__first), std::move(__value)};
-      }
-
-    template<weakly_incrementable _Tp, output_range<const _Tp&> _Range>
-      constexpr iota_result<borrowed_iterator_t<_Range>, _Tp>
-      operator()(_Range&& __r, _Tp __value) const
-      { return (*this)(ranges::begin(__r), ranges::end(__r), std::move(__value)); }
-  };
-
-  inline constexpr __iota_fn iota{};
 #endif // __glibcxx_ranges_iota
 
   struct __equal_fn
@@ -128,7 +101,7 @@ namespace ranges
 	     typename _Pred = ranges::equal_to,
 	     typename _Proj1 = identity, typename _Proj2 = identity>
       requires indirectly_comparable<_Iter1, _Iter2, _Pred, _Proj1, _Proj2>
-      constexpr bool
+      [[nodiscard]] constexpr bool
       operator()(_Iter1 __first1, _Sent1 __last1,
 		 _Iter2 __first2, _Sent2 __last2, _Pred __pred = {},
 		 _Proj1 __proj1 = {}, _Proj2 __proj2 = {}) const
@@ -195,7 +168,7 @@ namespace ranges
 	     typename _Proj1 = identity, typename _Proj2 = identity>
       requires indirectly_comparable<iterator_t<_Range1>, iterator_t<_Range2>,
 				     _Pred, _Proj1, _Proj2>
-      constexpr bool
+      [[nodiscard]] constexpr bool
       operator()(_Range1&& __r1, _Range2&& __r2, _Pred __pred = {},
 		 _Proj1 __proj1 = {}, _Proj2 __proj2 = {}) const
       {
@@ -571,7 +544,9 @@ namespace __detail
 
   struct __fill_n_fn
   {
-    template<typename _Tp, output_iterator<const _Tp&> _Out>
+    template<typename _Out,
+	     typename _Tp _GLIBCXX26_DEF_VAL_T(iter_value_t<_Out>)>
+      requires output_iterator<_Out, const _Tp&>
       constexpr _Out
       operator()(_Out __first, iter_difference_t<_Out> __n,
 		 const _Tp& __value) const
@@ -616,8 +591,10 @@ namespace __detail
 
   struct __fill_fn
   {
-    template<typename _Tp,
-	     output_iterator<const _Tp&> _Out, sentinel_for<_Out> _Sent>
+    template<typename _Out,
+	     sentinel_for<_Out> _Sent,
+	     typename _Tp _GLIBCXX26_DEF_VAL_T(iter_value_t<_Out>)>
+      requires output_iterator<_Out, const _Tp&>
       constexpr _Out
       operator()(_Out __first, _Sent __last, const _Tp& __value) const
       {
@@ -643,7 +620,9 @@ namespace __detail
 	  }
       }
 
-    template<typename _Tp, output_range<const _Tp&> _Range>
+    template<typename _Range,
+	     typename _Tp _GLIBCXX26_DEF_VAL_T(range_value_t<_Range>)>
+      requires output_range<_Range, const _Tp&>
       constexpr borrowed_iterator_t<_Range>
       operator()(_Range&& __r, const _Tp& __value) const
       {
