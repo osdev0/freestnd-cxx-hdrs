@@ -30,7 +30,9 @@
 #ifndef _GLIBCXX_OUT_PTR_H
 #define _GLIBCXX_OUT_PTR_H 1
 
+#ifdef _GLIBCXX_SYSHDR
 #pragma GCC system_header
+#endif
 
 #include <bits/version.h>
 
@@ -394,8 +396,8 @@ namespace __detail
   /**
    * @tparam _Pointer The type of pointer to convert to.
    * @param __s The pointer that should take ownership of the result.
-   * @param __args... Arguments to use when resetting the smart pointer.
-   * @return A std::inout_ptr_t referring to `__s`.
+   * @param __args Pack of arguments to use when resetting the smart pointer.
+   * @return A `std::out_ptr_t` referring to `__s`.
    * @since C++23
    * @headerfile <memory>
    */
@@ -415,8 +417,8 @@ namespace __detail
   /**
    * @tparam _Pointer The type of pointer to convert to.
    * @param __s The pointer that should take ownership of the result.
-   * @param __args... Arguments to use when resetting the smart pointer.
-   * @return A std::inout_ptr_t referring to `__s`.
+   * @param __args Pack of arguments to use when resetting the smart pointer.
+   * @return A `std::inout_ptr_t` referring to `__s`.
    * @since C++23
    * @headerfile <memory>
    */
