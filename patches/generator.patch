@@ -1,0 +1,16 @@
+--- include/generator	2026-05-29 21:22:12.034087039 +0400
++++ include-patched/generator	2026-05-30 00:35:40.430516972 +0400
+@@ -45,10 +45,13 @@
+ #include <bits/ranges_util.h>
+ #include <bits/elements_of.h>
+ #include <bits/uses_allocator.h>
++#include <bits/alloc_traits.h> // __alloc_rebind (freestanding)
+ #include <bits/exception_ptr.h>
+ #include <cstddef>
+ #include <cstdint>
++#if _GLIBCXX_HOSTED
+ #include <cstring>
++#endif
+ #include <coroutine>
+ 
+ #include <type_traits>
