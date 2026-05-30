@@ -1,6 +1,6 @@
 // C++ includes used for precompiling -*- C++ -*-
 
-// Copyright (C) 2003-2024 Free Software Foundation, Inc.
+// Copyright (C) 2003-2026 Free Software Foundation, Inc.
 //
 // This file is part of the GNU ISO C++ Library.  This library is free
 // software; you can redistribute it and/or modify it under the
@@ -29,12 +29,9 @@
 // 17.4.1.2 Headers
 
 // C
-#ifndef _GLIBCXX_NO_ASSERT
-#include <cassert>
-#endif
+// Don't include cassert, it's not suitable for PCH or header unit.
 #include <cctype>
 #include <cfloat>
-#include <ciso646>
 #include <climits>
 #include <csetjmp>
 #include <cstdarg>
@@ -43,6 +40,9 @@
 
 #if __cplusplus >= 201103L
 #include <cstdint>
+#if __cplusplus < 201703L
+#include <ciso646>
+#endif
 #endif
 
 // C++
@@ -90,25 +90,21 @@
 #include <span>
 #include <source_location>
 #include <version>
-#endif
-
-#if __cplusplus > 202002L
-#include <expected>
-#include <stdatomic.h>
 #if __cpp_impl_coroutine
 # include <coroutine>
 #endif
 #endif
 
+#if __cplusplus > 202002L
+#include <expected>
+#include <stdatomic.h>
+#endif
+
 #if _GLIBCXX_HOSTED
 // C
-#ifndef _GLIBCXX_NO_ASSERT
-#include <cassert>
-#endif
 #include <cctype>
 #include <cerrno>
 #include <cfloat>
-#include <ciso646>
 #include <climits>
 #include <clocale>
 #include <cmath>
@@ -124,14 +120,16 @@
 #include <cwctype>
 
 #if __cplusplus >= 201103L
-#include <ccomplex>
 #include <cfenv>
 #include <cinttypes>
+#include <cstdint>
+#include <cuchar>
+#if __cplusplus < 201703L
+#include <ccomplex>
 #include <cstdalign>
 #include <cstdbool>
-#include <cstdint>
 #include <ctgmath>
-#include <cuchar>
+#endif
 #endif
 
 // C++
@@ -222,18 +220,25 @@
 
 #if __cplusplus > 202002L
 #include <expected>
+#include <flat_map>
+#include <flat_set>
 #include <generator>
+#include <mdspan>
 #include <print>
 #include <spanstream>
-#if __has_include(<stacktrace>)
-# include <stacktrace>
-#endif
+#include <stacktrace>
 #include <stdatomic.h>
 #include <stdfloat>
 #endif
 
 #if __cplusplus > 202302L
+#include <contracts>
+#include <debugging>
+#include <inplace_vector>
+#include <meta>
 #include <text_encoding>
+#include <stdbit.h>
+#include <stdckdint.h>
 #endif
 
 #endif // HOSTED
