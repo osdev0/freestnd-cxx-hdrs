@@ -1,9 +1,9 @@
-Freestanding C++ Headers
-========================
+Freestanding C++ Headers (GNU)
+==============================
 
 Headers from GCC's libstdc++ that can be used in a freestanding environment.
 
-Relevant licenses apply.
+Relevant licenses apply; see COPYING3, and COPYING.RUNTIME.
 
 Note: These headers depend on the associated freestanding C headers to work.
       Please do not use alternative freestanding C header implementations with
