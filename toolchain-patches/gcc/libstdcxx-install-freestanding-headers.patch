@@ -1,0 +1,90 @@
+diff -urN a/libstdc++-v3/include/Makefile.am b/libstdc++-v3/include/Makefile.am
+--- a/libstdc++-v3/include/Makefile.am	2026-04-30 12:33:29.000000000 +0400
++++ b/libstdc++-v3/include/Makefile.am	2026-05-31 18:56:27.523386644 +0400
+@@ -124,6 +124,11 @@
+ bits_builddir = ./bits
+ bits_freestanding = \
+ 	${bits_srcdir}/algorithmfwd.h \
++	${bits_srcdir}/binders.h \
++	${bits_srcdir}/formatfwd.h \
++	${bits_srcdir}/funcwrap.h \
++	${bits_srcdir}/funcref_impl.h \
++	${bits_srcdir}/indirect.h \
+ 	${bits_srcdir}/align.h \
+ 	${bits_srcdir}/allocator.h \
+ 	${bits_srcdir}/alloc_traits.h \
+@@ -201,7 +206,6 @@
+ 	${bits_srcdir}/basic_ios.tcc \
+ 	${bits_srcdir}/basic_string.h \
+ 	${bits_srcdir}/basic_string.tcc \
+-	${bits_srcdir}/binders.h \
+ 	${bits_srcdir}/charconv.h \
+ 	${bits_srcdir}/chrono.h \
+ 	${bits_srcdir}/chrono_io.h \
+@@ -210,7 +214,6 @@
+ 	${bits_srcdir}/cpyfunc_impl.h \
+ 	${bits_srcdir}/deque.tcc \
+ 	${bits_srcdir}/erase_if.h \
+-	${bits_srcdir}/formatfwd.h \
+ 	${bits_srcdir}/forward_list.h \
+ 	${bits_srcdir}/forward_list.tcc \
+ 	${bits_srcdir}/fs_dir.h \
+@@ -218,13 +221,10 @@
+ 	${bits_srcdir}/fs_ops.h \
+ 	${bits_srcdir}/fs_path.h \
+ 	${bits_srcdir}/fstream.tcc \
+-	${bits_srcdir}/funcref_impl.h \
+-	${bits_srcdir}/funcwrap.h \
+ 	${bits_srcdir}/gslice.h \
+ 	${bits_srcdir}/gslice_array.h \
+ 	${bits_srcdir}/hashtable.h \
+ 	${bits_srcdir}/hashtable_policy.h \
+-	${bits_srcdir}/indirect.h \
+ 	${bits_srcdir}/indirect_array.h \
+ 	${bits_srcdir}/ios_base.h \
+ 	${bits_srcdir}/istream.tcc \
+diff -urN a/libstdc++-v3/include/Makefile.in b/libstdc++-v3/include/Makefile.in
+--- a/libstdc++-v3/include/Makefile.in	2026-04-30 12:33:29.000000000 +0400
++++ b/libstdc++-v3/include/Makefile.in	2026-05-31 18:56:27.502337062 +0400
+@@ -482,6 +482,11 @@
+ bits_builddir = ./bits
+ bits_freestanding = \
+ 	${bits_srcdir}/algorithmfwd.h \
++	${bits_srcdir}/binders.h \
++	${bits_srcdir}/formatfwd.h \
++	${bits_srcdir}/funcwrap.h \
++	${bits_srcdir}/funcref_impl.h \
++	${bits_srcdir}/indirect.h \
+ 	${bits_srcdir}/align.h \
+ 	${bits_srcdir}/allocator.h \
+ 	${bits_srcdir}/alloc_traits.h \
+@@ -557,7 +562,6 @@
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/basic_ios.tcc \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/basic_string.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/basic_string.tcc \
+-@GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/binders.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/charconv.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/chrono.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/chrono_io.h \
+@@ -566,7 +570,6 @@
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/cpyfunc_impl.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/deque.tcc \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/erase_if.h \
+-@GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/formatfwd.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/forward_list.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/forward_list.tcc \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/fs_dir.h \
+@@ -574,13 +577,10 @@
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/fs_ops.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/fs_path.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/fstream.tcc \
+-@GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/funcref_impl.h \
+-@GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/funcwrap.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/gslice.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/gslice_array.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/hashtable.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/hashtable_policy.h \
+-@GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/indirect.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/indirect_array.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/ios_base.h \
+ @GLIBCXX_HOSTED_TRUE@	${bits_srcdir}/istream.tcc \
