@@ -993,7 +993,9 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 
       constexpr tuple(const tuple&) = default;
 
-      constexpr tuple(tuple&&) = default;
+      constexpr
+      tuple(tuple&&) requires (is_move_constructible_v<_Elements> && ...)
+	= default;
 
       template<typename... _UTypes>
 	requires (__constructible<const _UTypes&...>())

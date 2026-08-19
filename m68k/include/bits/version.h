@@ -447,9 +447,9 @@
 
 #if !defined(__cpp_lib_constant_wrapper)
 # if (__cplusplus >  202302L)
-#  define __glibcxx_constant_wrapper 202603L
+#  define __glibcxx_constant_wrapper 202606L
 #  if defined(__glibcxx_want_all) || defined(__glibcxx_want_constant_wrapper)
-#   define __cpp_lib_constant_wrapper 202603L
+#   define __cpp_lib_constant_wrapper 202606L
 #  endif
 # endif
 #endif /* !defined(__cpp_lib_constant_wrapper) */
@@ -2108,9 +2108,9 @@
 
 #if !defined(__cpp_lib_flat_map)
 # if (__cplusplus >= 202100L)
-#  define __glibcxx_flat_map 202207L
+#  define __glibcxx_flat_map 202511L
 #  if defined(__glibcxx_want_all) || defined(__glibcxx_want_flat_map)
-#   define __cpp_lib_flat_map 202207L
+#   define __cpp_lib_flat_map 202511L
 #  endif
 # endif
 #endif /* !defined(__cpp_lib_flat_map) */
@@ -2118,9 +2118,9 @@
 
 #if !defined(__cpp_lib_flat_set)
 # if (__cplusplus >= 202100L)
-#  define __glibcxx_flat_set 202207L
+#  define __glibcxx_flat_set 202511L
 #  if defined(__glibcxx_want_all) || defined(__glibcxx_want_flat_set)
-#   define __cpp_lib_flat_set 202207L
+#   define __cpp_lib_flat_set 202511L
 #  endif
 # endif
 #endif /* !defined(__cpp_lib_flat_set) */
