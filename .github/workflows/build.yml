@@ -4,9 +4,10 @@ on:
   push:
     branches:
       - 'trunk'
+  workflow_dispatch:
 
 jobs:
-  install-headers:
+  build:
     strategy:
       matrix:
         target_arch: [i686, x86_64, aarch64, loongarch64, riscv64, m68k]
@@ -16,7 +17,7 @@ jobs:
 
     steps:
       - name: Install dependencies
-        run: pacman --noconfirm -Syu && pacman --needed --noconfirm -S base-devel git autoconf automake wget
+        run: pacman --noconfirm -Syu && pacman --needed --noconfirm -S base-devel git autoconf automake wget bison flex texinfo file
 
       - name: Check out repository code
         uses: actions/checkout@v7
@@ -26,15 +27,13 @@ jobs:
 
       - name: Build toolchain
         run: |
-          set -ex
           TARGET="${{matrix.target_arch}}-elf" ./make_toolchain.sh
 
       - name: Move headers
         run: |
-          set -ex
           mkdir -p ${{matrix.target_arch}}
           rm -rf ${{matrix.target_arch}}/include
-          mv toolchain/include/c++/* ${{matrix.target_arch}}/include
+          mv toolchain/output/include/c++/* ${{matrix.target_arch}}/include
           cp -rp ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf/* ${{matrix.target_arch}}/include/
           rm -rf ${{matrix.target_arch}}/include/${{matrix.target_arch}}-elf
           for f in patches/*; do \
@@ -43,10 +42,9 @@ jobs:
 
       - name: Push
         run: |
-          set -ex
           git config user.name 'mintsuki'
           git config user.email 'mintsuki@users.noreply.github.com'
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/osdev0/freestnd-cxx-hdrs.git
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/osdev0/freestanding-cxx-hdrs-gnu.git
           while true; do \
             git pull --all; \
             git add ${{matrix.target_arch}}; \

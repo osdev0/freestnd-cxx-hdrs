@@ -15,11 +15,11 @@ if [ -z "$TARGET" ]; then
 fi
 
 if [ -z "$BINUTILSVERSION" ]; then
-    BINUTILSVERSION=2.46.0
+    BINUTILSVERSION=2.47
 fi
 
 if [ -z "$GCCVERSION" ]; then
-    GCCVERSION=16.1.0
+    GCCVERSION=16.2.0
 fi
 
 if command -v gmake; then
@@ -49,19 +49,19 @@ if [ "$(uname)" = "OpenBSD" ]; then
 fi
 
 mkdir -p toolchain && cd toolchain
-PREFIX="$(pwd -P)"
+PREFIX="$(pwd -P)/output"
 
 export MAKEFLAGS="-j$(nproc 2>/dev/null || sysctl -n hw.ncpu 2>/dev/null || psrinfo -tc 2>/dev/null || echo 1)"
 
 export PATH="$PREFIX/bin:$PATH"
 
 if [ ! -f binutils-$BINUTILSVERSION.tar.xz ]; then
-    curl -Lo binutils-$BINUTILSVERSION.tar.xz https://ftpmirror.gnu.org/gnu/binutils/binutils-$BINUTILSVERSION.tar.xz
-    b2sum binutils-$BINUTILSVERSION.tar.xz | grep -q 9f4fd8897d237eb5003bdf439537dfc5f8c681e9ff939fb06bb8235ed298031ea4cc91611edb640ffc432199d5791289d003fe0d07acce80327dc40595a5eb9e
+    curl -Lo binutils-$BINUTILSVERSION.tar.xz https://ftp.gnu.org/gnu/binutils/binutils-$BINUTILSVERSION.tar.xz
+    b2sum binutils-$BINUTILSVERSION.tar.xz | grep -q 329cae8792c500c71d8cce03aab127e8d77f1d409f74872082e64df5163e5c730fe585f8f9c21905cb6227cae18e6675ae4caed653223a26b5d9d4fdb90910ea
 fi
 if [ ! -f gcc-$GCCVERSION.tar.xz ]; then
-    curl -Lo gcc-$GCCVERSION.tar.xz https://ftpmirror.gnu.org/gnu/gcc/gcc-$GCCVERSION/gcc-$GCCVERSION.tar.xz
-    b2sum gcc-$GCCVERSION.tar.xz | grep -q ceb07866b6b17eb4c69a6b51241b275bc5ec506603a7c1a4c1e2585091a09fc647be945beeff76700bffd9018bda81b072d84f909fd7998baa0cfe3f0eb550b4
+    curl -Lo gcc-$GCCVERSION.tar.xz https://ftp.gnu.org/gnu/gcc/gcc-$GCCVERSION/gcc-$GCCVERSION.tar.xz
+    b2sum gcc-$GCCVERSION.tar.xz | grep -q ab3ffe16e042da767f3f1eac170da518d6d7de3b0f92e068f79e3bf25fdc0bdf56eea0cd586bd4b9b6e9baebadd110c2ebd77b75c99c45853814f4bea5a98ef0
 fi
 
 rm -rf build
@@ -76,12 +76,18 @@ cd binutils-$BINUTILSVERSION
 for patch in "${srcdir}"/toolchain-patches/binutils/*; do
     [ "${patch}" = "${srcdir}/toolchain-patches/binutils/*" ] && break
     patch -p1 < "${patch}"
-    find . -name '*.orig' -delete
 done
 cd ..
 mkdir build-binutils
 cd build-binutils
-../binutils-$BINUTILSVERSION/configure CFLAGS="$CFLAGS" CXXFLAGS="$CFLAGS" --target=$TARGET --prefix="$PREFIX" --with-sysroot --disable-nls --disable-werror
+../binutils-$BINUTILSVERSION/configure \
+    CFLAGS="$CFLAGS" \
+    CXXFLAGS="$CFLAGS" \
+    --target=$TARGET \
+    --prefix="$PREFIX" \
+    --with-sysroot \
+    --disable-nls \
+    --disable-werror
 $MAKE
 $MAKE install
 cd ..
@@ -91,7 +97,6 @@ cd gcc-$GCCVERSION
 for patch in "${srcdir}"/toolchain-patches/gcc/*; do
     [ "${patch}" = "${srcdir}/toolchain-patches/gcc/*" ] && break
     patch -p1 < "${patch}"
-    find . -name '*.orig' -delete
 done
 sed 's|http://gcc.gnu|https://gcc.gnu|g' < contrib/download_prerequisites > dp.sed
 mv dp.sed contrib/download_prerequisites
@@ -100,7 +105,14 @@ chmod +x contrib/download_prerequisites
 cd ..
 mkdir build-gcc
 cd build-gcc
-../gcc-$GCCVERSION/configure CFLAGS="$CFLAGS" CXXFLAGS="$CFLAGS" --target=$TARGET --prefix="$PREFIX" --disable-nls --enable-languages=c,c++ --without-headers
+../gcc-$GCCVERSION/configure \
+    CFLAGS="$CFLAGS" \
+    CXXFLAGS="$CFLAGS" \
+    --target=$TARGET \
+    --prefix="$PREFIX" \
+    --disable-nls \
+    --enable-languages=c,c++ \
+    --without-headers \
 $MAKE all-gcc
 $MAKE all-target-libgcc
 $MAKE install-gcc
@@ -109,6 +121,19 @@ cd ..
 
 mkdir build-libstdcxx
 cd build-libstdcxx
-ac_cv_func_getexecname=no ac_cv_func_fcntl=no ../gcc-$GCCVERSION/libstdc++-v3/configure --host=$TARGET --prefix="$PREFIX" --disable-nls --disable-tls --disable-multilib --disable-hosted-libstdcxx --disable-libstdcxx-verbose --disable-libstdcxx-threads --disable-libstdcxx-filesystem-ts --disable-libstdcxx-backtrace --without-headers
+    ac_cv_func_getexecname=no \
+    ac_cv_func_fcntl=no \
+../gcc-$GCCVERSION/libstdc++-v3/configure \
+    --host=$TARGET \
+    --prefix="$PREFIX" \
+    --disable-nls \
+    --disable-tls \
+    --disable-multilib \
+    --disable-hosted-libstdcxx \
+    --disable-libstdcxx-verbose \
+    --disable-libstdcxx-threads \
+    --disable-libstdcxx-filesystem-ts \
+    --disable-libstdcxx-backtrace \
+    --without-headers
 $MAKE install-data
 cd ..
