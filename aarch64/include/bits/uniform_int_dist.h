@@ -288,7 +288,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
       operator()(_UniformRandomBitGenerator& __urng,
 		 const param_type& __param)
       {
-	typedef typename _UniformRandomBitGenerator::result_type _Gresult_type;
+	typedef decltype(__urng()) _Gresult_type;
 	typedef typename make_unsigned<result_type>::type __utype;
 	typedef typename common_type<_Gresult_type, __utype>::type __uctype;
 
@@ -386,7 +386,7 @@ _GLIBCXX_BEGIN_NAMESPACE_VERSION
 		      const param_type& __param)
       {
 	__glibcxx_function_requires(_ForwardIteratorConcept<_ForwardIterator>)
-	typedef typename _UniformRandomBitGenerator::result_type _Gresult_type;
+	typedef decltype(__urng()) _Gresult_type;
 	typedef typename make_unsigned<result_type>::type __utype;
 	typedef typename common_type<_Gresult_type, __utype>::type __uctype;
 

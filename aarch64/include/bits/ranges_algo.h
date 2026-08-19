@@ -1850,8 +1850,7 @@ namespace ranges
 	    using __distrib_type = uniform_int_distribution<_Size>;
 	    using __param_type = typename __distrib_type::param_type;
 	    using _USize = __detail::__make_unsigned_like_t<_Size>;
-	    using __uc_type
-	      = common_type_t<typename remove_reference_t<_Gen>::result_type, _USize>;
+	    using __uc_type = common_type_t<decltype(__g()), _USize>;
 
 	    if (__first == __last)
 	      return __out;
@@ -1964,9 +1963,7 @@ namespace ranges
 	using __ud_type = __detail::__make_unsigned_like_t<_DistanceType>;
 	using __distr_type = std::uniform_int_distribution<__ud_type>;
 	using __p_type = typename __distr_type::param_type;
-
-	using __uc_type
-	  = common_type_t<typename remove_reference_t<_Gen>::result_type, __ud_type>;
+	using __uc_type = common_type_t<decltype(__g()), __ud_type>;
 
 	if constexpr (sized_sentinel_for<_Sent, _Iter>)
 	  {
